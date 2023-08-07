@@ -29,11 +29,15 @@ void StringCopy_BoundsCheck(char* from, char* to)
 
 void StringMemCopy(char* from, char* to, size_t destinationSize)
 {
-	size_t numCharsToCopy = std::min(strlen(from), destinationSize-1);
+	size_t sourceSize = strlen(from);
+	size_t numCharsToCopy = std::min(sourceSize, destinationSize-1);
 
 	memcpy(to, from, numCharsToCopy);
 
-	to[numCharsToCopy + 1] = '\0';
+	if (destinationSize < sourceSize)
+	{
+		to[destinationSize - 1] = '\0';
+	}
 }
 
 void PrintStrings(char* from, char* to)
