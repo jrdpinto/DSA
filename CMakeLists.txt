@@ -1,6 +1,5 @@
-﻿# CMakeList.txt : CMake project for DataStructuresAlgorithms, include source and define
-# project specific logic here.
-#
+﻿# ROOT CMake
+
 cmake_minimum_required (VERSION 3.8)
 
 project("DataStructuresAlgorithms" LANGUAGES CXX)
@@ -10,6 +9,7 @@ file(GLOB sources "*/CMakeLists.txt")
 
 # Iterate over each subdirectory and add it as a subdirectory in the project
 foreach(source ${sources})
+	message("Directory: ${source}")
 	get_filename_component(subdir ${source} DIRECTORY)
 	add_subdirectory(${subdir})
 endforeach()

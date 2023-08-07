@@ -1,4 +1,4 @@
-﻿# BinaryTree root CMake
+# ReverseString root CMake
 
 cmake_minimum_required (VERSION 3.8)
 
