@@ -19,52 +19,52 @@
 
 void ReverseWithPointers(char* string)
 {
-	if (string == nullptr)
-	{
-		return;
-	}
+    if (string == nullptr)
+    {
+        return;
+    }
 
-	size_t length = strlen(string);
-	char* start = &string[0];
-	char* end = &string[length-1];
+    size_t length = strlen(string);
+    char* start = &string[0];
+    char* end = &string[length-1];
 
-	while (start < end)
-	{
-		std::swap(*start, *end);
+    while (start < end)
+    {
+        std::swap(*start, *end);
 
-		++start;
-		--end;
-	}
+        ++start;
+        --end;
+    }
 }
 
 void Reverse(char* string)
 {
-	if (string == nullptr)
-	{
-		return;
-	}
+    if (string == nullptr)
+    {
+        return;
+    }
 
-	size_t length = strlen(string);
+    size_t length = strlen(string);
 
-	for (size_t i = 0, indexToSwap = length - 1; i < indexToSwap; ++i, --indexToSwap)
-	{
-		std::swap(string[i], string[indexToSwap]);
-	}
+    for (size_t i = 0, indexToSwap = length - 1; i < indexToSwap; ++i, --indexToSwap)
+    {
+        std::swap(string[i], string[indexToSwap]);
+    }
 }
 
 int main()
 {
-	char buffer[128];
+    char buffer[128];
 
-	std::cout << "Reverse String" << std::endl;
+    std::cout << "Reverse String" << std::endl;
 
-	std::cout << "Enter a string to reverse" << std::endl;
+    std::cout << "Enter a string to reverse" << std::endl;
 
-	std::cin >> buffer;
+    std::cin >> buffer;
 
-	std::cout << "Entered string: " << buffer << std::endl;
-	ReverseWithPointers(buffer);
-	std::cout << "Reversed string: " << buffer << std::endl;
+    std::cout << "Entered string: " << buffer << std::endl;
+    ReverseWithPointers(buffer);
+    std::cout << "Reversed string: " << buffer << std::endl;
 
-	return 0;
+    return 0;
 }

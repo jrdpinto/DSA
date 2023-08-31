@@ -9,7 +9,7 @@ file(GLOB sources "*/CMakeLists.txt")
 
 # Iterate over each subdirectory and add it as a subdirectory in the project
 foreach(source ${sources})
-	message("Directory: ${source}")
-	get_filename_component(subdir ${source} DIRECTORY)
-	add_subdirectory(${subdir})
+    message("Directory: ${source}")
+    get_filename_component(subdir ${source} DIRECTORY)
+    add_subdirectory(${subdir})
 endforeach()
