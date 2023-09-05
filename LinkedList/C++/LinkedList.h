@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <iostream>
+#include <initializer_list>
 
 
 template <typename T>
@@ -17,22 +18,28 @@ private:
         }
     };
 
-    Node* head_;
-    Node* tail_;
+    Node* head_ = nullptr;
+    Node* tail_ = nullptr;
     int length_ = 0;
 
 public:
-    LinkedList(T value)
+    LinkedList() = default;
+
+    LinkedList(std::initializer_list<T> initialValues)
     {
-        Node* newNode = new Node(value);
-        head_ = newNode;
-        tail_ = newNode;
-        length_ = 1;
+        for (auto value : initialValues)
+        {
+            append(value);
+        }
     }
 
     ~LinkedList()
     {
-        int count = 0;
+        clear();
+    }
+
+    void clear()
+    {
         Node* currentNode = head_;
         while (currentNode != nullptr)
         {
@@ -44,18 +51,27 @@ public:
 
             delete(currentNode);
             currentNode = nextNode;
-            ++count;
 
-            _ASSERT(count <= length_);
+            --length_;
         }
     }
 
     void append(T value)
     {
         Node* newNode = new Node(value);
+
+        if (!head_)
+        {
+            head_ = newNode;
+        }
+
         Node* previousTail = tail_;
-        previousTail->next = newNode;
+        if (previousTail)
+        {
+            previousTail->next = newNode;
+        }
         tail_ = newNode;
+
         ++length_;
     }
 
@@ -64,7 +80,34 @@ public:
         Node<T>* newNode = new Node<T>(value);
         Node<T>* previousHead = head_;
         head_ = newNode;
-        head_->next = previousHead;
+
+        if (previousHead)
+        {
+            head_->next = previousHead;
+        }
+
         ++length_;
+    }
+
+    void printList()
+    {
+        Node* currentNode = head_;
+        while (currentNode)
+        {
+            std::cout << "Value: " << currentNode->value << std::endl;
+            currentNode = currentNode->next;
+        }
+    }
+
+    // TODO:
+
+    void deleteLast()
+    {
+        
+    }
+
+    void reverseList()
+    {
+
     }
 };
