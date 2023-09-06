@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <iostream>
+#include <sstream>
 #include <initializer_list>
 
 
@@ -36,6 +37,11 @@ public:
     ~LinkedList()
     {
         clear();
+    }
+
+    int GetLength()
+    {
+        return length_;
     }
 
     void clear()
@@ -77,8 +83,8 @@ public:
 
     void prepend(T value)
     {
-        Node<T>* newNode = new Node<T>(value);
-        Node<T>* previousHead = head_;
+        Node* newNode = new Node(value);
+        Node* previousHead = head_;
         head_ = newNode;
 
         if (previousHead)
@@ -92,20 +98,60 @@ public:
     void printList()
     {
         Node* currentNode = head_;
+        std::stringstream ss;
         while (currentNode)
         {
-            std::cout << "Value: " << currentNode->value << std::endl;
+            ss << currentNode->value;
+
             currentNode = currentNode->next;
+            if (currentNode)
+            {
+                ss << ",";
+            }
+        }
+
+        std::cout << "Values: " << ss.str() << std::endl;
+    }
+
+    void deleteLast()
+    {
+        if (!tail_)
+        {
+            return;
+        }
+
+        // Find the node that points to the last node
+        Node* previousNode = nullptr;
+        if (tail_ != head_)
+        {
+            Node* currentNode = head_;
+            while (currentNode)
+            {
+                if (currentNode->next && currentNode->next == tail_)
+                {
+                    previousNode = currentNode;
+                    break;
+                }
+                
+                currentNode = currentNode->next;
+            }
+        }
+
+        delete(tail_);
+        --length_;
+
+        if (previousNode)
+        {
+            previousNode->next = nullptr;
+            tail_ = previousNode;
+        }
+        else
+        {
+            head_ = tail_ = nullptr;
         }
     }
 
     // TODO:
-
-    void deleteLast()
-    {
-        
-    }
-
     void reverseList()
     {
 
