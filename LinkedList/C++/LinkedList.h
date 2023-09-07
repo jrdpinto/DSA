@@ -115,39 +115,57 @@ public:
 
     void deleteLast()
     {
-        if (!tail_)
+        deleteNode(length_ - 1);
+    }
+
+    void deleteFirst()
+    {
+        deleteNode(0);
+    }
+
+    void deleteNode(int index)
+    {
+        _ASSERT(index < length_);
+        if (length_ < 1 || index > length_)
         {
             return;
         }
 
-        // Find the node that points to the last node
-        Node* previousNode = nullptr;
-        if (tail_ != head_)
+        // Find the target node, and the preceeding/following nodes if they exist
+        Node* previous = nullptr;
+        Node* next = nullptr;
+        Node* current = head_;
+
+        for (int i = 0; i <= index; ++i)
         {
-            Node* currentNode = head_;
-            while (currentNode)
+            if (i < index)
             {
-                if (currentNode->next && currentNode->next == tail_)
-                {
-                    previousNode = currentNode;
-                    break;
-                }
-                
-                currentNode = currentNode->next;
+                previous = current;
+                current = current->next;
+            }
+            else
+            {
+                next = current->next;
             }
         }
 
-        delete(tail_);
+        // Ensure that head and tail are updated
+        if (current == head_)
+        {
+            head_ = next;
+        }
+
+        if (current == tail_)
+        {
+            tail_ = previous;
+        }
+
+        delete(current);
         --length_;
 
-        if (previousNode)
+        if (previous)
         {
-            previousNode->next = nullptr;
-            tail_ = previousNode;
-        }
-        else
-        {
-            head_ = tail_ = nullptr;
+            previous->next = next;
         }
     }
 
