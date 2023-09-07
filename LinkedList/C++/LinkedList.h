@@ -23,6 +23,27 @@ private:
     Node* tail_ = nullptr;
     int length_ = 0;
 
+    Node* GetNode(int index, Node*& previousNode)
+    {
+        Node* node = nullptr;
+        previousNode = nullptr;
+
+        _ASSERT(index < length_);
+        if (length_ < 1 || index >= length_)
+        {
+            return node;
+        }
+
+        node = head_;
+        for (int i = 0; i < index; ++i)
+        {
+            previousNode = node;
+            node = node->next;
+        }
+
+        return node;
+    }
+
 public:
     LinkedList() = default;
 
@@ -125,47 +146,31 @@ public:
 
     void deleteNode(int index)
     {
-        _ASSERT(index < length_);
-        if (length_ < 1 || index > length_)
-        {
-            return;
-        }
-
-        // Find the target node, and the preceeding/following nodes if they exist
         Node* previous = nullptr;
-        Node* next = nullptr;
-        Node* current = head_;
+        Node* current = GetNode(index, previous);
 
-        for (int i = 0; i <= index; ++i)
+        if (current)
         {
-            if (i < index)
+            Node* next = current->next;
+
+            // Ensure that head and tail are updated
+            if (current == head_)
             {
-                previous = current;
-                current = current->next;
+                head_ = next;
             }
-            else
+
+            if (current == tail_)
             {
-                next = current->next;
+                tail_ = previous;
             }
-        }
 
-        // Ensure that head and tail are updated
-        if (current == head_)
-        {
-            head_ = next;
-        }
+            delete(current);
+            --length_;
 
-        if (current == tail_)
-        {
-            tail_ = previous;
-        }
-
-        delete(current);
-        --length_;
-
-        if (previous)
-        {
-            previous->next = next;
+            if (previous)
+            {
+                previous->next = next;
+            }
         }
     }
 
