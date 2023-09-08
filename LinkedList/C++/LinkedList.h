@@ -51,21 +51,22 @@ public:
     {
         for (auto value : initialValues)
         {
-            append(value);
+            Append(value);
         }
     }
 
     ~LinkedList()
     {
-        clear();
+        Clear();
     }
+
 
     int GetLength()
     {
         return length_;
     }
 
-    void clear()
+    void Clear()
     {
         Node* currentNode = head_;
         while (currentNode != nullptr)
@@ -83,7 +84,7 @@ public:
         }
     }
 
-    void append(T value)
+    void Append(T value)
     {
         Node* newNode = new Node(value);
 
@@ -102,21 +103,12 @@ public:
         ++length_;
     }
 
-    void prepend(T value)
+    void Prepend(T value)
     {
-        Node* newNode = new Node(value);
-        Node* previousHead = head_;
-        head_ = newNode;
-
-        if (previousHead)
-        {
-            head_->next = previousHead;
-        }
-
-        ++length_;
+        Insert(0, value);
     }
 
-    void printList()
+    void PrintList()
     {
         Node* currentNode = head_;
         std::stringstream ss;
@@ -134,17 +126,17 @@ public:
         std::cout << "Values: " << ss.str() << std::endl;
     }
 
-    void deleteLast()
+    void DeleteLast()
     {
-        deleteNode(length_ - 1);
+        DeleteNode(length_ - 1);
     }
 
-    void deleteFirst()
+    void DeleteFirst()
     {
-        deleteNode(0);
+        DeleteNode(0);
     }
 
-    void deleteNode(int index)
+    void DeleteNode(int index)
     {
         Node* previous = nullptr;
         Node* current = GetNode(index, previous);
@@ -174,8 +166,46 @@ public:
         }
     }
 
+    void SetNode(int index, T value)
+    {
+        Node* prevNode = nullptr;
+        Node* targetNode = GetNode(index, prevNode);
+        if (targetNode)
+        {
+            targetNode->value = value;
+        }
+    }
+
+    bool Insert(int index, T value)
+    {
+        bool success = false;
+        Node* prevNode = nullptr;
+        Node* targetNode = GetNode(index, prevNode);
+
+        if (targetNode)
+        {
+            Node* newNode = new Node(value);
+            newNode->next = targetNode;
+
+            if (prevNode)
+            {
+                prevNode->next = newNode;
+            }
+
+            if (targetNode == head_)
+            {
+                head_ = newNode;
+            }
+
+            ++length_;
+            success = true;
+        }
+
+        return success;
+    }
+
     // TODO:
-    void reverseList()
+    void ReverseList()
     {
 
     }

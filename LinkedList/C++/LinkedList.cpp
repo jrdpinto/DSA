@@ -6,37 +6,49 @@ int main()
 {
     {
         LinkedList<int> testList{1, 2, 3, 4, 5};
-        testList.printList();
+        testList.PrintList();
 
         std::cout << "Prepending with 0" << std::endl;
-        testList.prepend(0);
-        testList.printList();
+        testList.Prepend(0);
+        testList.PrintList();
 
         std::cout << "Deleting last" << std::endl;
-        testList.deleteLast();
-        testList.printList();
+        testList.DeleteLast();
+        testList.PrintList();
 
         std::cout << "Deleting 2" << std::endl;
-        testList.deleteNode(2);
-        testList.printList();
+        testList.DeleteNode(2);
+        testList.PrintList();
 
         int numElements = testList.GetLength();
         for (int i = 0; i < numElements; ++i)
         {
             std::cout << "Deleting first element" << std::endl;
-            testList.deleteFirst();
-            testList.printList();
+            testList.DeleteFirst();
+            testList.PrintList();
         }
 
         LinkedList<char> testList2{'h', 'e', 'l', 'l', 'o'};
-        testList2.printList();
+        testList2.PrintList();
+
+        std::cout << "Inserting character" << std::endl;
+        testList2.Insert(testList2.GetLength() - 1, 'o');
+        testList2.PrintList();
+        testList2.Insert(0, ' ');
+        testList2.PrintList();
+        testList2.Insert(0, 'y');
+        testList2.PrintList();
+        testList2.Insert(0, 'h');
+        testList2.PrintList();
+        testList2.Insert(0, 'W');
+        testList2.PrintList();
 
         numElements = testList2.GetLength();
         for (int i = 0; i < numElements; ++i)
         {
-            std::cout << "Deleting last element" << std::endl;
-            testList2.deleteLast();
-            testList2.printList();
+            std::cout << "Deleting first element" << std::endl;
+            testList2.DeleteNode(0);
+            testList2.PrintList();
         }
     }
 
