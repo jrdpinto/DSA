@@ -60,7 +60,6 @@ public:
         Clear();
     }
 
-
     int GetLength()
     {
         return length_;
@@ -82,6 +81,8 @@ public:
 
             --length_;
         }
+
+        head_ = tail_ = nullptr;
     }
 
     void Append(T value)
