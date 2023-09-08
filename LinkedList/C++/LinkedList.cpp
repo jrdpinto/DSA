@@ -12,6 +12,10 @@ int main()
         testList.Prepend(0);
         testList.PrintList();
 
+        std::cout << "Reverse" << std::endl;
+        testList.Reverse();
+        testList.PrintList();
+
         std::cout << "Deleting last" << std::endl;
         testList.DeleteLast();
         testList.PrintList();

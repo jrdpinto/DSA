@@ -205,9 +205,29 @@ public:
         return success;
     }
 
-    // TODO:
-    void ReverseList()
+    void Reverse()
     {
+        if (length_ <= 1)
+        {
+            return;
+        }
 
+        Node* previousTail = tail_;
+        Node* previousHead = head_;
+
+        Node* currentNode = head_;
+        Node* previousNode = nullptr;
+        while (currentNode != nullptr)
+        {
+            Node* nextNode = currentNode->next;
+            currentNode->next = previousNode;
+
+            // Move down the list
+            previousNode = currentNode;
+            currentNode = nextNode;
+        }
+
+        head_ = previousTail;
+        tail_ = previousHead;
     }
 };
