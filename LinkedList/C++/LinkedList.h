@@ -7,7 +7,7 @@
 template <typename T>
 class LinkedList
 {
-private:
+public:
     struct Node
     {
         T value;
@@ -19,32 +19,6 @@ private:
         }
     };
 
-    Node* head_ = nullptr;
-    Node* tail_ = nullptr;
-    int length_ = 0;
-
-    Node* GetNode(int index, Node*& previousNode)
-    {
-        Node* node = nullptr;
-        previousNode = nullptr;
-
-        _ASSERT(index < length_);
-        if (length_ < 1 || index >= length_)
-        {
-            return node;
-        }
-
-        node = head_;
-        for (int i = 0; i < index; ++i)
-        {
-            previousNode = node;
-            node = node->next;
-        }
-
-        return node;
-    }
-
-public:
     LinkedList() = default;
 
     LinkedList(std::initializer_list<T> initialValues)
@@ -229,5 +203,79 @@ public:
 
         head_ = previousTail;
         tail_ = previousHead;
+    }
+
+    const Node* GetNodeAtIndex(int index)
+    {
+        Node* previousNode = nullptr;
+        return GetNode(index, previousNode);
+    }
+
+// Interview Question - Find Middle Node
+// Implement a member function, findMiddleNode(), which finds and returns the middle node of the linked 
+// list.
+// NOTE: THIS LINKEDLIST IMPLEMENTATION DOES NOT HAVE A LENGTH MEMBER VARIABLE.
+// 
+// Function Signature:
+// Node* findMiddleNode();
+// 
+// Input:
+//     The linked list can have any number of nodes (0 to n).
+//     Node values are integers.
+// 
+// Output:
+//     Return a pointer to the middle node of the linked list.
+//     If the list has an even number of nodes, return the second middle node (the one closer to the
+//     end).
+// 
+// Constraints:
+//     You are not allowed to use any additional data structures (such as arrays) or modify the existing 
+//     data structure.
+//     You can only traverse the linked list once.
+    Node* FindMiddleNode()
+    {
+        Node* currentNode = head_;
+        Node* lookAheadNode = currentNode;
+
+        while (lookAheadNode != nullptr && lookAheadNode != tail_)
+        {
+            currentNode = currentNode->next;
+
+            // Move 'lookAheadNode', two nodes ahead. When this node reaches the tail, the 'currentNode'
+            // will be at the middle.
+            lookAheadNode = lookAheadNode->next;
+            if (lookAheadNode)
+            {
+                lookAheadNode = lookAheadNode->next;
+            }
+        }
+
+        return currentNode;
+    }
+
+private:
+    Node* head_ = nullptr;
+    Node* tail_ = nullptr;
+    int length_ = 0;
+
+    Node* GetNode(int index, Node*& previousNode)
+    {
+        Node* node = nullptr;
+        previousNode = nullptr;
+
+        _ASSERT(index < length_);
+        if (length_ < 1 || index >= length_)
+        {
+            return node;
+        }
+
+        node = head_;
+        for (int i = 0; i < index; ++i)
+        {
+            previousNode = node;
+            node = node->next;
+        }
+
+        return node;
     }
 };

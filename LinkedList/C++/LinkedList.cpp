@@ -2,6 +2,19 @@
 
 using namespace std;
 
+template <typename T>
+void RunMiddleNodeTest(LinkedList<T>& list)
+{
+    std::cout << std::endl << "Finding middle node in: ";
+    list.PrintList();
+
+    LinkedList<int>::Node* middleNode = list.FindMiddleNode();
+    if (middleNode)
+    {
+        std::cout << "Middle node: " << middleNode->value << std::endl;
+    }
+}
+
 int main()
 {
     {
@@ -55,6 +68,13 @@ int main()
             testList2.PrintList();
         }
     }
+
+    // Coding exercise - Find middle node
+    RunMiddleNodeTest(LinkedList<int>{1, 2, 3, 4, 5});
+    RunMiddleNodeTest(LinkedList<int>{1, 2, 3, 4, 5, 6});
+    RunMiddleNodeTest(LinkedList<int>{1, 2});
+    RunMiddleNodeTest(LinkedList<int>{1});
+    RunMiddleNodeTest(LinkedList<int>{});
 
     return 0;
 }
