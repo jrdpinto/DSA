@@ -94,10 +94,34 @@ int main()
         LinkedList<int>::Node* secondNode = testList.GetNodeAtIndex(1);
         LinkedList<int>::Node* fourthNode = thirdNode->next;
         thirdNode->next = testList.GetNodeAtIndex(1);
-        std::printf("List %s a loop", testList.HasLoop() ? "has" : "does not have");
+        std::printf("List %s a loop \n", testList.HasLoop() ? "has" : "does not have");
 
         // Need to fix loop to prevent issues with deconstructor
         thirdNode->next = fourthNode;
+    }
+
+    {
+        // Coding exercise - Find nth node from the end
+        std::cout << std::endl;
+        std::cout << "Running 'nth node' from the end tests" << std::endl;
+        LinkedList<int> testList{1, 2, 3, 4, 5};
+        testList.PrintList();
+        
+        std::cout << "Retrieving 2cnd last node" << std::endl;
+        LinkedList<int>::Node* returnedNode = testList.FindKthFromEnd(2);
+        std::cout << "Returned node: " << (returnedNode ? std::to_string(returnedNode->value) : "Null") << std::endl;
+
+        std::cout << "Retrieving 6th last node" << std::endl;
+        returnedNode = testList.FindKthFromEnd(6);
+        std::cout << "Returned node: " << (returnedNode ? std::to_string(returnedNode->value) : "Null") << std::endl;
+
+        std::cout << "Retrieving 5th last node" << std::endl;
+        returnedNode = testList.FindKthFromEnd(5);
+        std::cout << "Returned node: " << (returnedNode ? std::to_string(returnedNode->value) : "Null") << std::endl;
+
+        std::cout << "Retrieving last node" << std::endl;
+        returnedNode = testList.FindKthFromEnd(1);
+        std::cout << "Returned node: " << (returnedNode ? std::to_string(returnedNode->value) : "Null") << std::endl;
     }
 
     return 0;

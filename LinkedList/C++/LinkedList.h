@@ -287,6 +287,61 @@ public:
         return hasLoop;
     }
 
+    // Find Kth Node From End ( ** Interview Question)
+    // 
+    // Implement the findKthFromEnd member function for the LinkedList class, which returns the k-th node
+    // from the end of the linked list WITHOUT USING THE LENGTH of the list.
+    // 
+    // If the value of k is greater than the length of the list, the function should return nullptr.
+    // 
+    // Function signature:
+    // 
+    // Node* findKthFromEnd(int k)
+    // 
+    // Example:
+    // 
+    // Consider the following singly linked list:
+    // 1 -> 2 -> 3 -> 4 -> 5 -> nullptr
+    // For the given list, the function ll.findKthFromEnd(2) should return the node with value 4, as it
+    // is the 2nd node from the end of the list.
+
+    Node* FindKthFromEnd(int k)
+    {
+        if (k < 1 || head_ == nullptr)
+        {
+            return nullptr;
+        }
+
+        Node* target = head_;
+        Node* lookAhead = target;
+        int requiredDistanceBetweenNodes = k - 1;
+
+        int distanceBetweenNodes = 0;
+        while (lookAhead->next)
+        {
+            if (distanceBetweenNodes < requiredDistanceBetweenNodes)
+            {
+                lookAhead = lookAhead->next;
+                ++distanceBetweenNodes;
+
+                // If we have reached the end of the list and we do not have the
+                // required distance between nodes, the list is shorter than the
+                // requested node.
+                if (!lookAhead->next && distanceBetweenNodes < requiredDistanceBetweenNodes)
+                {
+                    target = nullptr;
+                }
+            }
+            else
+            {
+                target = target->next;
+                lookAhead = lookAhead->next;
+            }
+        }
+
+        return target;
+    }
+
 private:
     Node* head_ = nullptr;
     Node* tail_ = nullptr;
