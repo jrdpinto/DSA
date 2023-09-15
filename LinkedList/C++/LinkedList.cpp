@@ -69,12 +69,36 @@ int main()
         }
     }
 
-    // Coding exercise - Find middle node
-    RunMiddleNodeTest(LinkedList<int>{1, 2, 3, 4, 5});
-    RunMiddleNodeTest(LinkedList<int>{1, 2, 3, 4, 5, 6});
-    RunMiddleNodeTest(LinkedList<int>{1, 2});
-    RunMiddleNodeTest(LinkedList<int>{1});
-    RunMiddleNodeTest(LinkedList<int>{});
+    {
+        // Coding exercise - Find middle node
+        RunMiddleNodeTest(LinkedList<int>{1, 2, 3, 4, 5});
+        RunMiddleNodeTest(LinkedList<int>{1, 2, 3, 4, 5, 6});
+        RunMiddleNodeTest(LinkedList<int>{1, 2});
+        RunMiddleNodeTest(LinkedList<int>{1});
+        RunMiddleNodeTest(LinkedList<int>{});
+    }
+    
+    {
+        // Coding exercise - Detect loop
+        std::cout << "Running loop tests" << std::endl;
+        LinkedList<int> testList2{1};
+        testList2.PrintList();
+        std::printf("List %s a loop \n", testList2.HasLoop() ? "has" : "does not have");
+
+        LinkedList<int> testList{1, 2, 3, 4, 5};
+        testList.PrintList();
+        std::printf("List %s a loop \n", testList.HasLoop() ? "has" : "does not have");
+
+        std::cout << "Linking 3 to 2" << std::endl;
+        LinkedList<int>::Node* thirdNode = testList.GetNodeAtIndex(2);
+        LinkedList<int>::Node* secondNode = testList.GetNodeAtIndex(1);
+        LinkedList<int>::Node* fourthNode = thirdNode->next;
+        thirdNode->next = testList.GetNodeAtIndex(1);
+        std::printf("List %s a loop", testList.HasLoop() ? "has" : "does not have");
+
+        // Need to fix loop to prevent issues with deconstructor
+        thirdNode->next = fourthNode;
+    }
 
     return 0;
 }

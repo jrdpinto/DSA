@@ -205,33 +205,34 @@ public:
         tail_ = previousHead;
     }
 
-    const Node* GetNodeAtIndex(int index)
+    Node* GetNodeAtIndex(int index)
     {
         Node* previousNode = nullptr;
         return GetNode(index, previousNode);
     }
 
-// Interview Question - Find Middle Node
-// Implement a member function, findMiddleNode(), which finds and returns the middle node of the linked 
-// list.
-// NOTE: THIS LINKEDLIST IMPLEMENTATION DOES NOT HAVE A LENGTH MEMBER VARIABLE.
-// 
-// Function Signature:
-// Node* findMiddleNode();
-// 
-// Input:
-//     The linked list can have any number of nodes (0 to n).
-//     Node values are integers.
-// 
-// Output:
-//     Return a pointer to the middle node of the linked list.
-//     If the list has an even number of nodes, return the second middle node (the one closer to the
-//     end).
-// 
-// Constraints:
-//     You are not allowed to use any additional data structures (such as arrays) or modify the existing 
-//     data structure.
-//     You can only traverse the linked list once.
+    // Interview Question - Find Middle Node
+    // Implement a member function, findMiddleNode(), which finds and returns the middle node of the linked 
+    // list.
+    // NOTE: THIS LINKEDLIST IMPLEMENTATION DOES NOT HAVE A LENGTH MEMBER VARIABLE.
+    // 
+    // Function Signature:
+    // Node* findMiddleNode();
+    // 
+    // Input:
+    //     The linked list can have any number of nodes (0 to n).
+    //     Node values are integers.
+    // 
+    // Output:
+    //     Return a pointer to the middle node of the linked list.
+    //     If the list has an even number of nodes, return the second middle node (the one closer to the
+    //     end).
+    // 
+    // Constraints:
+    //     You are not allowed to use any additional data structures (such as arrays) or modify the existing 
+    //     data structure.
+    //     You can only traverse the linked list once.
+
     Node* FindMiddleNode()
     {
         Node* currentNode = head_;
@@ -251,6 +252,39 @@ public:
         }
 
         return currentNode;
+    }
+
+    // Interview Question - Has Loop
+    //
+    // Implement a function called hasLoop to detect if a given singly-linked list contains a loop (a cycle) or not.
+    // The function should return true if a loop is detected in the linked list, and false otherwise. 
+    //
+    // You should use the Floyd's cycle-finding algorithm (also known as the "tortoise and the hare" algorithm) to
+    // detect the loop. This algorithm uses two pointers, a slow pointer, and a fast pointer. The slow pointer
+    // moves one step at a time, while the fast pointer moves two steps at a time. If there is a loop in the linked
+    // list, the two pointers will eventually meet at some point. If there is no loop, the fast pointer will reach
+    // the end of the list.
+
+    bool HasLoop()
+    {
+        Node* slow = head_;
+        Node* fast = head_;
+        bool hasLoop = false;
+
+        while (!hasLoop && fast != nullptr)
+        {
+            slow = slow->next;
+
+            fast = fast->next;
+            if (fast)
+            {
+                fast = fast->next;
+            }
+
+            hasLoop = fast != nullptr && slow == fast;
+        }
+
+        return hasLoop;
     }
 
 private:
