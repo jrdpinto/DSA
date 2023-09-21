@@ -287,7 +287,7 @@ public:
         return hasLoop;
     }
 
-    // Find Kth Node From End ( ** Interview Question)
+    // Interview Question - Find Kth Node From End
     // 
     // Implement the findKthFromEnd member function for the LinkedList class, which returns the k-th node
     // from the end of the linked list WITHOUT USING THE LENGTH of the list.
@@ -340,6 +340,99 @@ public:
         }
 
         return target;
+    }
+
+
+    // Interview Question - Partition List
+    //
+    // Implement the partitionList member function for the LinkedList class, which partitions the list such
+    // that all nodes with values less than x come before nodes with values greater than or equal to x.
+    //
+    // Note: This linked list class does NOT have a tail which will make this method easier to implement.
+    //
+    // The original relative order of the nodes should be preserved.
+    //
+    // Function Signature:
+    // 
+    // void partitionList(int x)
+    // 
+    // Example:
+    // 
+    // Consider the following singly linked list:
+    // 
+    // 1 -> 4 -> 3 -> 2 -> 5 -> 2 -> nullptr
+    // 
+    // For the given list, the function ll.partitionList(3) should modify the list to be:
+    // 
+    // 1 -> 2 -> 2 -> 4 -> 3 -> 5 -> nullptr
+    // 
+    // All nodes with values less than 3 come before nodes with values greater than or equal to 3, and their
+    // original relative order is preserved.
+
+    void PartitionList(T x)
+    {
+        Node* left = nullptr;
+        Node* leftHead = nullptr;
+        Node* right = nullptr;
+        Node* rightHead = nullptr;
+        
+        Node* currentNode = head_;
+        while (currentNode)
+        {
+            if (currentNode->value < x)
+            {
+                if (left)
+                {
+                    left->next = currentNode;
+                    left = left->next;
+                }
+                else
+                {
+                    left = currentNode;
+                    leftHead = left;
+                }
+            }
+            else
+            {
+                if (right)
+                {
+                    right->next = currentNode;
+                    right = right->next;
+                }
+                else
+                {
+                    right = currentNode;
+                    rightHead = right;
+                }
+            }
+
+            currentNode = currentNode->next;
+        }
+
+        // Merge lists if required and update head (and tail)
+        if (leftHead || rightHead)
+        {
+            head_ = leftHead ? leftHead : rightHead;
+            
+            if (left)
+            {
+                if (rightHead)
+                {
+                    left->next = rightHead;
+                    tail_ = right;
+                }
+                else
+                {
+                    tail_ = left;
+                }
+            }
+            else if (right)
+            {
+                tail_ = right;
+            }
+
+            tail_->next = nullptr;
+        }
     }
 
 private:

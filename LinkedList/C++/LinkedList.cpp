@@ -124,5 +124,26 @@ int main()
         std::cout << "Returned node: " << (returnedNode ? std::to_string(returnedNode->value) : "Null") << std::endl;
     }
 
+    {
+        // Coding exercise - partition list
+        std::cout << std::endl;
+        std::cout << "Running partition test" << std::endl;
+        LinkedList<int> testList{1,4,3,2,5,2};
+        testList.PrintList();
+
+        std::cout << "Partitioning list around a value of '3'" << std::endl;
+        testList.PartitionList(3);
+        testList.PrintList();
+
+        std::cout << std::endl;
+        std::cout << "Running partition test" << std::endl;
+        LinkedList<int> testList2{1,4,3,2,5,2};
+        testList2.PrintList();
+
+        std::cout << "Partitioning list around a value of '0'" << std::endl;
+        testList2.PartitionList(0);
+        testList2.PrintList();
+    }
+
     return 0;
 }
