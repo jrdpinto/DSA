@@ -15,6 +15,31 @@ void RunMiddleNodeTest(LinkedList<T>& list)
     }
 }
 
+// Interview Question - Partition List
+// Objective: You have a linked list where each node represents a binary digit (0 or 1).
+// The goal of the binaryToDecimal function is to convert this binary number,
+// represented by the linked list, into its decimal equivalent.
+//
+//Function Signature: int binaryToDecimal()
+
+int BinaryToDecimal(LinkedList<char>& binaryList)
+{
+    int decimalValue = 0;
+    int position = 0;
+    int length = binaryList.GetLength() - 1;
+    LinkedList<char>::Node* current = binaryList.GetNodeAtIndex(0);
+
+    while (current)
+    {
+        decimalValue += current->value * pow(2, length - position);
+
+        current = current->next;
+        ++position;
+    }
+
+    return decimalValue;
+}
+
 int main()
 {
     {
@@ -162,6 +187,16 @@ int main()
         std::cout << "Removing duplicates" << std::endl;
         testList2.RemoveDuplicates();
         testList2.PrintList();
+    }
+
+    {
+        // Coding exercise - binary to decimal
+        std::cout << std::endl;
+        std::cout << "Running binary to decimal test" << std::endl;
+        LinkedList<char> testList{1,0,1,1};
+        testList.PrintList();
+
+        std::cout << "Converted to binary: " << BinaryToDecimal(testList) << std::endl;
     }
 
     return 0;

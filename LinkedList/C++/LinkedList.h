@@ -196,7 +196,7 @@ public:
 
         Node* currentNode = head_;
         Node* previousNode = nullptr;
-        while (currentNode != nullptr)
+        while (currentNode)
         {
             Node* nextNode = currentNode->next;
             currentNode->next = previousNode;
@@ -465,12 +465,12 @@ public:
     {
         Node* current = head_;
 
-        while (current != nullptr)
+        while (current)
         {
             Node* scanner = current->next;
             Node* previous = current;
 
-            while (scanner != nullptr)
+            while (scanner)
             {
                 if (current->value == scanner->value)
                 {
