@@ -114,24 +114,29 @@ public:
     void DeleteNode(int index)
     {
         Node* previous = nullptr;
-        Node* current = GetNode(index, previous);
+        Node* target = GetNode(index, previous);
 
-        if (current)
+        DeleteNode(target, previous);
+    }
+
+    void DeleteNode(Node* target, Node* previous)
+    {
+        if (target)
         {
-            Node* next = current->next;
+            Node* next = target->next;
 
             // Ensure that head and tail are updated
-            if (current == head_)
+            if (target == head_)
             {
                 head_ = next;
             }
 
-            if (current == tail_)
+            if (target == tail_)
             {
                 tail_ = previous;
             }
 
-            delete(current);
+            delete(target);
             --length_;
 
             if (previous)
@@ -432,6 +437,56 @@ public:
             }
 
             tail_->next = nullptr;
+        }
+    }
+
+    // Interview Question - Remove duplicates
+    //
+    // Implement the removeDuplicates member function for the LinkedList class, which removes all
+    // duplicate values from a singly linked list. The function should preserve the original order
+    // of the non-duplicate elements.
+    // 
+    // Note: This linked list class does NOT have a tail which will make this method easier to implement.
+    // 
+    // Function Signature:
+    // 
+    // void removeDuplicates()
+    //
+    // Example:
+    // Consider the following singly linked list:
+    // 1 -> 2 -> 3 -> 2 -> 4 -> 5 -> 3 -> nullptr
+    // 
+    // For the given list, after calling the function ll.removeDuplicates(), the list should be modified to be:
+    // 1 -> 2 -> 3 -> 4 -> 5 -> nullptr
+    // 
+    // All duplicate values have been removed, and the remaining elements maintain their original order.
+
+    void RemoveDuplicates()
+    {
+        Node* current = head_;
+
+        while (current != nullptr)
+        {
+            Node* scanner = current->next;
+            Node* previous = current;
+
+            while (scanner != nullptr)
+            {
+                if (current->value == scanner->value)
+                {
+                    Node* next = scanner->next;
+
+                    DeleteNode(scanner, previous);
+                    scanner = next;
+                }
+                else
+                {
+                    previous = scanner;
+                    scanner = scanner->next;
+                }
+            }
+
+            current = current->next;
         }
     }
 

@@ -145,5 +145,24 @@ int main()
         testList2.PrintList();
     }
 
+    {
+        // Coding exercise - remove duplicates
+        std::cout << std::endl;
+        std::cout << "Running duplicates test" << std::endl;
+        LinkedList<int> testList{1,2,3,2,4,5,3};
+        testList.PrintList();
+
+        std::cout << "Removing duplicates" << std::endl;
+        testList.RemoveDuplicates();
+        testList.PrintList();
+
+        LinkedList<int> testList2{1,1,3,4,4,5,3};
+        testList2.PrintList();
+
+        std::cout << "Removing duplicates" << std::endl;
+        testList2.RemoveDuplicates();
+        testList2.PrintList();
+    }
+
     return 0;
 }
