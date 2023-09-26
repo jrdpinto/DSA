@@ -8,7 +8,7 @@ void RunMiddleNodeTest(LinkedList<T>& list)
     std::cout << std::endl << "Finding middle node in: ";
     list.PrintList();
 
-    LinkedList<int>::Node* middleNode = list.FindMiddleNode();
+    LinkedList<T>::Node* middleNode = list.FindMiddleNode();
     if (middleNode)
     {
         std::cout << "Middle node: " << middleNode->value << std::endl;
@@ -31,7 +31,7 @@ int BinaryToDecimal(LinkedList<char>& binaryList)
 
     while (current)
     {
-        decimalValue += current->value * pow(2, length - position);
+        decimalValue += current->value * (int)pow(2, length - position);
 
         current = current->next;
         ++position;
@@ -197,6 +197,26 @@ int main()
         testList.PrintList();
 
         std::cout << "Converted to binary: " << BinaryToDecimal(testList) << std::endl;
+    }
+
+    {
+        // Coding exercise - reverse between
+        std::cout << std::endl;
+        std::cout << "Running reverse between test" << std::endl;
+        LinkedList<int> testList{1,2,3,4};
+        testList.PrintList();
+
+        std::cout << "Reversing between indices 1 to 2: " << std::endl;
+        testList.ReverseBetween(1, 2);
+        testList.PrintList();
+
+        std::cout << "Reversing between indices 0 to 3: " << std::endl;
+        testList.ReverseBetween(0, 3);
+        testList.PrintList();
+
+        std::cout << "Reversing between indices 0 to 1: " << std::endl;
+        testList.ReverseBetween(0, 1);
+        testList.PrintList();
     }
 
     return 0;

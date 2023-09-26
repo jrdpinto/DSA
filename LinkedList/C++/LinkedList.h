@@ -210,6 +210,73 @@ public:
         tail_ = previousHead;
     }
 
+    // Interview question - Reverse between
+    // Implement the reverseBetween member function for the LinkedList class, which reverses the nodes
+    // of the list from the indexes m to n (the positions are 0-indexed).
+    //
+    // Function Signature: void reverseBetween(int m, int n)
+    //
+    // Example:
+    // Consider the following singly linked list:
+    // 1 -> 2 -> 3 -> 4 -> 5 -> nullptr
+    //
+    // For the given list, the function ll.reverseBetween(1, 3) should modify the list to be:
+    // 1 -> 4 -> 3 -> 2 -> 5 -> nullptr
+    // 
+    // The sublist from the indexes from 1 to 3 has been reversed.
+
+    void ReverseBetween(int m, int n)
+    {
+        if (length_ <= 1 || n >= length_ || m >= length_ || n - m < 1)
+        {
+            return;
+        }
+
+        Node* nodeBeforeStartIndex = nullptr;
+        Node* nodeAtStartIndex = GetNode(m, nodeBeforeStartIndex);
+
+        if (!nodeAtStartIndex)
+        {
+            return;
+        }
+
+        Node* currentNode = nodeAtStartIndex;
+        Node* previousNode = nodeBeforeStartIndex;
+        Node* nextNode = nullptr;
+
+        int currentIndex = m;
+        while (currentNode && currentIndex <= n)
+        {
+            nextNode = currentNode->next;
+            currentNode->next = previousNode;
+
+            // Move down the list
+            previousNode = currentNode;
+            currentNode = nextNode;
+
+            ++currentIndex;
+        }
+
+        // Update the start node and the node before it to ensure that they point to the correct
+        // nodes in the list.
+        if (nodeBeforeStartIndex)
+        {
+            nodeBeforeStartIndex->next = previousNode;
+        }
+        else
+        {
+            // If there is no node before the start index, the end index is now the head
+            head_ = previousNode;
+        }
+
+        // If there is no node following the last node in the sequence, this node becomes the tail
+        nodeAtStartIndex->next = nextNode;
+        if (!nextNode)
+        {
+            tail_ = nodeAtStartIndex;
+        }
+    }
+
     Node* GetNodeAtIndex(int index)
     {
         Node* previousNode = nullptr;
