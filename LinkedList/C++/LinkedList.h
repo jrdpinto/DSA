@@ -3,7 +3,6 @@
 #include <sstream>
 #include <initializer_list>
 
-
 template <typename T>
 class LinkedList
 {
@@ -59,6 +58,13 @@ public:
         head_ = tail_ = nullptr;
     }
 
+    template <typename... Args>
+    void Append(T first, Args... rest)
+    {
+        Append(first);
+        Append(rest...);
+    }
+
     void Append(T value)
     {
         Node* newNode = new Node(value);
@@ -67,12 +73,15 @@ public:
         {
             head_ = newNode;
         }
-
-        Node* previousTail = tail_;
-        if (previousTail)
+        else
         {
-            previousTail->next = newNode;
+            Node* previousTail = tail_;
+            if (previousTail)
+            {
+                previousTail->next = newNode;
+            }
         }
+
         tail_ = newNode;
 
         ++length_;
