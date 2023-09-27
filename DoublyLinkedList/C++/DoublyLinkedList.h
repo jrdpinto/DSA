@@ -89,6 +89,32 @@ public:
         ++length_;
     }
 
+    template <typename... Args>
+    void Prepend(T first, Args... rest)
+    {
+        Prepend(first);
+        Prepend(rest...);
+    }
+
+    void Prepend(T value)
+    {
+        Node* newNode = new Node(value);
+
+        if (head_)
+        {
+            head_->previous = newNode;
+            newNode->next = head_;
+        }
+        else
+        {
+            // The list is empty. The new node becomes both the head and the tail.
+            tail_ = newNode;
+        }
+
+        head_ = newNode;
+        ++length_;
+    }
+
     void DeleteLast()
     {
         if (!tail_)

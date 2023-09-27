@@ -16,6 +16,14 @@ int main()
         testList.Append(9, 10, 11);
         testList.PrintList();
 
+        std::cout << "Prepending -1" << std::endl;
+        testList.Prepend(-1);
+        testList.PrintList();
+
+        std::cout << "Prepending -2, -3, -4" << std::endl;
+        testList.Prepend(-2, -3, -4);
+        testList.PrintList();
+
         std::cout << "Deleting elements in reverse" << std::endl;
         while (testList.GetLength() > 0)
         {
