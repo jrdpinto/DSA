@@ -30,6 +30,20 @@ int main()
             testList.DeleteLast();
             testList.PrintList();
         }
+
+        std::cout << std::endl;
+    }
+
+    {
+        DoublyLinkedList<int> testList{1, 2, 3, 4, 5};
+        testList.PrintList();
+
+        std::cout << "Deleting elements from the front" << std::endl;
+        while (testList.GetLength() > 0)
+        {
+            testList.DeleteFirst();
+            testList.PrintList();
+        }
     }
 
     return 0;

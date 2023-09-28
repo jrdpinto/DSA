@@ -141,6 +141,30 @@ public:
         --length_;
     }
 
+    void DeleteFirst()
+    {
+        if (!head_)
+        {
+            return;
+        }
+
+        Node* temp = head_;
+
+        if (temp->next)
+        {
+            head_ = temp->next;
+            head_->previous = nullptr;
+        }
+        else
+        {
+            head_ = nullptr;
+            tail_ = nullptr;
+        }
+
+        delete(temp);
+        --length_;
+    }
+
     void PrintList()
     {
         Node* currentNode = head_;
