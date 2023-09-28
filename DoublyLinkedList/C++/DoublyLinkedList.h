@@ -220,6 +220,20 @@ public:
         return targetNode;
     }
 
+    bool Set(int index, int value)
+    {
+        bool success = false;
+
+        Node* targetNode = GetNode(index);
+        if (targetNode)
+        {
+            targetNode->value = value;
+            success = true;
+        }
+
+        return success;
+    }
+
 private:
     Node* head_ = nullptr;
     Node* tail_ = nullptr;

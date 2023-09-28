@@ -24,6 +24,10 @@ int main()
         testList.Prepend(-2, -3, -4);
         testList.PrintList();
 
+        std::cout << "Setting '1' to 0" << std::endl;
+        testList.Set(4, 0);
+        testList.PrintList();
+
         std::cout << "Deleting elements in reverse" << std::endl;
         while (testList.GetLength() > 0)
         {
