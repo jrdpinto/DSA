@@ -122,6 +122,25 @@ int main()
         std::cout << "Inserting after tail" << std::endl;
         testList.Insert(testList.GetLength(), 3);
         testList.PrintList();
+
+        std::cout << std::endl;
+    }
+
+    {
+        std::cout << "Swap test" << std::endl;
+        DoublyLinkedList<int> testList{1,2};
+        testList.PrintList();
+
+        testList.SwapFirstLast();
+        testList.PrintList();
+
+        testList.Append(3, 4, 5);
+        testList.PrintList();
+        testList.SwapFirstLast();
+        testList.PrintList();
+
+        testList.Clear();
+        testList.SwapFirstLast();
     }
 
     return 0;
