@@ -81,6 +81,31 @@ int main()
         retrievalTest(2, 3);
         retrievalTest(1, 2);
         retrievalTest(0, 1);
+
+        std::cout << std::endl;
+    }
+
+    {
+        std::cout << "Insertion test" << std::endl;
+
+        DoublyLinkedList<int> testList;
+        testList.PrintList();
+
+        std::cout << "Inserting at head" << std::endl;
+        testList.Insert(0, 0);
+        testList.PrintList();
+
+        std::cout << "Inserting at head" << std::endl;
+        testList.Insert(0, -1);
+        testList.PrintList();
+
+        std::cout << "Inserting at tail" << std::endl;
+        testList.Insert(1, 2);
+        testList.PrintList();
+
+        std::cout << "Inserting after tail" << std::endl;
+        testList.Insert(testList.GetLength(), 3);
+        testList.PrintList();
     }
 
     return 0;

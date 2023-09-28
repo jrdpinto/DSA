@@ -68,25 +68,7 @@ public:
 
     void Append(T value)
     {
-        Node* newNode = new Node(value);
-
-        if (!head_)
-        {
-            head_ = newNode;
-        }
-        else
-        {
-            Node* previousTail = tail_;
-            if (previousTail)
-            {
-                previousTail->next = newNode;
-                newNode->previous = previousTail;
-            }
-        }
-
-        tail_ = newNode;
-
-        ++length_;
+        Insert(length_, value);
     }
 
     template <typename... Args>
@@ -98,20 +80,50 @@ public:
 
     void Prepend(T value)
     {
+        Insert(0, value);
+    }
+
+    void Insert(int index, T value)
+    {
+        if (index < 0 || (index > length_))
+        {
+            return;
+        }
+
         Node* newNode = new Node(value);
 
-        if (head_)
+        if (length_ == 0)
         {
-            head_->previous = newNode;
-            newNode->next = head_;
+            head_ = newNode;
+            tail_ = newNode;
+        }
+        else if (index == length_)
+        {
+            tail_->next = newNode;
+            newNode->previous = tail_;
+            tail_ = newNode;
         }
         else
         {
-            // The list is empty. The new node becomes both the head and the tail.
-            tail_ = newNode;
+            Node* targetNode = GetNode(index);
+            if (targetNode)
+            {
+                Node* previousNode = targetNode->previous;
+                if (previousNode)
+                {
+                    previousNode->next = newNode;
+                    newNode->previous = previousNode;
+                }
+                else
+                {
+                    head_ = newNode;
+                }
+
+                newNode->next = targetNode;
+                targetNode->previous = newNode;
+            }
         }
 
-        head_ = newNode;
         ++length_;
     }
 
