@@ -44,6 +44,39 @@ int main()
             testList.DeleteFirst();
             testList.PrintList();
         }
+
+        std::cout << std::endl;
+    }
+
+    {
+        std::cout << "Running node retrieval test" << std::endl;
+
+        DoublyLinkedList<int> testList{1, 2, 3, 4, 5};
+        testList.PrintList();
+
+        auto retrievalTest = [&](int targetIndex, int expectedValue) 
+        {
+            std::cout << "Retrieving node " << targetIndex << std::endl;
+
+            DoublyLinkedList<int>::Node* node = testList.GetNode(targetIndex);
+            if (node)
+            {
+                std::cout << "Retrieved " << (node->value == expectedValue ? "correct" : "incorrect") 
+                    << " node with value : " << node->value << std::endl;
+            }
+            else
+            {
+                std::cout << "Node not retrieved" << std::endl;
+            }
+        };
+
+        retrievalTest(-1, -1);
+        retrievalTest(5, -1);
+        retrievalTest(4, 5);
+        retrievalTest(3, 4);
+        retrievalTest(2, 3);
+        retrievalTest(1, 2);
+        retrievalTest(0, 1);
     }
 
     return 0;

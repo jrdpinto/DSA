@@ -183,6 +183,43 @@ public:
         std::cout << "Values: " << ss.str() << std::endl;
     }
 
+    Node* GetNode(int index)
+    {
+        Node* targetNode = nullptr;
+        if (index >= length_ || index < 0)
+        {
+            return targetNode;
+        }
+
+        int currentIndex;
+        if (index > (int)length_ / 2)
+        {
+            targetNode = tail_;
+            currentIndex = length_ - 1;
+        }
+        else
+        {
+            targetNode = head_;
+            currentIndex = 0;
+        }
+
+        while (currentIndex != index && targetNode)
+        {
+            if (currentIndex < index)
+            {
+                ++currentIndex;
+                targetNode = targetNode->next;
+            }
+            else
+            {
+                --currentIndex;
+                targetNode = targetNode->previous;
+            }
+        }
+
+        return targetNode;
+    }
+
 private:
     Node* head_ = nullptr;
     Node* tail_ = nullptr;
