@@ -53,6 +53,22 @@ int main()
     }
 
     {
+        DoublyLinkedList<int> testList{1, 2, 3, 4, 5};
+        testList.PrintList();
+
+        std::cout << "Deleting random elements" << std::endl;
+        while (testList.GetLength() > 0)
+        {
+            int randomIndex = rand() % testList.GetLength();
+            std::cout << "Deleting index: " << randomIndex << std::endl;
+            testList.Delete(randomIndex);
+            testList.PrintList();
+        }
+
+        std::cout << std::endl;
+    }
+
+    {
         std::cout << "Running node retrieval test" << std::endl;
 
         DoublyLinkedList<int> testList{1, 2, 3, 4, 5};

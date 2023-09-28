@@ -126,55 +126,54 @@ public:
 
         ++length_;
     }
-
-    void DeleteLast()
+    
+    void Delete(int index)
     {
-        if (!tail_)
+        if (index < 0 || (index >= length_))
         {
             return;
         }
 
-        Node* lastNode = tail_;
-
-        if (tail_->previous)
+        Node* targetNode = GetNode(index);
+        if (targetNode)
         {
-            // If the tail has a previous node, make that node the new tail
-            tail_ = tail_->previous;
-            tail_->next = nullptr;
-        }
-        else
-        {
-            // If the tail does not have a previous node, it is the only node in the list
-            head_ = nullptr;
-            tail_ = nullptr;
-        }
+            if (length_ == 1)
+            {
+                head_ = nullptr;
+                tail_ = nullptr;
+            }
+            else
+            {
+                if (!targetNode->next)
+                {
+                    tail_ = targetNode->previous;
+                    tail_->next = nullptr;
+                }
+                else if (!targetNode->previous)
+                {
+                    head_ = targetNode->next;
+                    head_->previous = nullptr;
+                }
+                else
+                {
+                    targetNode->previous->next = targetNode->next;
+                    targetNode->next->previous = targetNode->previous;
+                }
+            }
 
-        delete(lastNode);
-        --length_;
+            delete(targetNode);
+            --length_;
+        }
+    }
+
+    void DeleteLast()
+    {
+        Delete(length_ - 1);
     }
 
     void DeleteFirst()
     {
-        if (!head_)
-        {
-            return;
-        }
-
-        Node* temp = head_;
-
-        if (temp->next)
-        {
-            head_ = temp->next;
-            head_->previous = nullptr;
-        }
-        else
-        {
-            head_ = nullptr;
-            tail_ = nullptr;
-        }
-
-        delete(temp);
-        --length_;
+        Delete(0);
     }
 
     void PrintList()
