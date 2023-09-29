@@ -92,7 +92,7 @@ public:
         Insert(0, value);
     }
 
-    void PrintList()
+    void Print()
     {
         Node* currentNode = head_;
         std::stringstream ss;

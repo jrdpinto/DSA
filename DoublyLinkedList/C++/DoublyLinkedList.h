@@ -176,7 +176,7 @@ public:
         Delete(0);
     }
 
-    void PrintList()
+    void Print()
     {
         Node* currentNode = head_;
         std::stringstream ss;

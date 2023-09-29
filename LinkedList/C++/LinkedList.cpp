@@ -6,7 +6,7 @@ template <typename T>
 void RunMiddleNodeTest(LinkedList<T>& list)
 {
     std::cout << std::endl << "Finding middle node in: ";
-    list.PrintList();
+    list.Print();
 
     LinkedList<T>::Node* middleNode = list.FindMiddleNode();
     if (middleNode)
@@ -44,53 +44,53 @@ int main()
 {
     {
         LinkedList<int> testList{1, 2, 3, 4, 5};
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Prepending with 0" << std::endl;
         testList.Prepend(0);
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Reverse" << std::endl;
         testList.Reverse();
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Deleting last" << std::endl;
         testList.DeleteLast();
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Deleting 2" << std::endl;
         testList.DeleteNode(2);
-        testList.PrintList();
+        testList.Print();
 
         int numElements = testList.GetLength();
         for (int i = 0; i < numElements; ++i)
         {
             std::cout << "Deleting first element" << std::endl;
             testList.DeleteFirst();
-            testList.PrintList();
+            testList.Print();
         }
 
         LinkedList<char> testList2{'h', 'e', 'l', 'l', 'o'};
-        testList2.PrintList();
+        testList2.Print();
 
         std::cout << "Inserting character" << std::endl;
         testList2.Insert(testList2.GetLength() - 1, 'o');
-        testList2.PrintList();
+        testList2.Print();
         testList2.Insert(0, ' ');
-        testList2.PrintList();
+        testList2.Print();
         testList2.Insert(0, 'y');
-        testList2.PrintList();
+        testList2.Print();
         testList2.Insert(0, 'h');
-        testList2.PrintList();
+        testList2.Print();
         testList2.Insert(0, 'W');
-        testList2.PrintList();
+        testList2.Print();
 
         numElements = testList2.GetLength();
         for (int i = 0; i < numElements; ++i)
         {
             std::cout << "Deleting first element" << std::endl;
             testList2.DeleteNode(0);
-            testList2.PrintList();
+            testList2.Print();
         }
     }
 
@@ -107,11 +107,11 @@ int main()
         // Coding exercise - Detect loop
         std::cout << "Running loop tests" << std::endl;
         LinkedList<int> testList2{1};
-        testList2.PrintList();
+        testList2.Print();
         std::printf("List %s a loop \n", testList2.HasLoop() ? "has" : "does not have");
 
         LinkedList<int> testList{1, 2, 3, 4, 5};
-        testList.PrintList();
+        testList.Print();
         std::printf("List %s a loop \n", testList.HasLoop() ? "has" : "does not have");
 
         std::cout << "Linking 3 to 2" << std::endl;
@@ -130,7 +130,7 @@ int main()
         std::cout << std::endl;
         std::cout << "Running 'nth node' from the end tests" << std::endl;
         LinkedList<int> testList{1, 2, 3, 4, 5};
-        testList.PrintList();
+        testList.Print();
         
         std::cout << "Retrieving 2cnd last node" << std::endl;
         LinkedList<int>::Node* returnedNode = testList.FindKthFromEnd(2);
@@ -154,20 +154,20 @@ int main()
         std::cout << std::endl;
         std::cout << "Running partition test" << std::endl;
         LinkedList<int> testList{1,4,3,2,5,2};
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Partitioning list around a value of '3'" << std::endl;
         testList.PartitionList(3);
-        testList.PrintList();
+        testList.Print();
 
         std::cout << std::endl;
         std::cout << "Running partition test" << std::endl;
         LinkedList<int> testList2{1,4,3,2,5,2};
-        testList2.PrintList();
+        testList2.Print();
 
         std::cout << "Partitioning list around a value of '0'" << std::endl;
         testList2.PartitionList(0);
-        testList2.PrintList();
+        testList2.Print();
     }
 
     {
@@ -175,18 +175,18 @@ int main()
         std::cout << std::endl;
         std::cout << "Running duplicates test" << std::endl;
         LinkedList<int> testList{1,2,3,2,4,5,3};
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Removing duplicates" << std::endl;
         testList.RemoveDuplicates();
-        testList.PrintList();
+        testList.Print();
 
         LinkedList<int> testList2{1,1,3,4,4,5,3};
-        testList2.PrintList();
+        testList2.Print();
 
         std::cout << "Removing duplicates" << std::endl;
         testList2.RemoveDuplicates();
-        testList2.PrintList();
+        testList2.Print();
     }
 
     {
@@ -194,7 +194,7 @@ int main()
         std::cout << std::endl;
         std::cout << "Running binary to decimal test" << std::endl;
         LinkedList<char> testList{1,0,1,1};
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Converted to binary: " << BinaryToDecimal(testList) << std::endl;
     }
@@ -204,19 +204,19 @@ int main()
         std::cout << std::endl;
         std::cout << "Running reverse between test" << std::endl;
         LinkedList<int> testList{1,2,3,4};
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Reversing between indices 1 to 2: " << std::endl;
         testList.ReverseBetween(1, 2);
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Reversing between indices 0 to 3: " << std::endl;
         testList.ReverseBetween(0, 3);
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Reversing between indices 0 to 1: " << std::endl;
         testList.ReverseBetween(0, 1);
-        testList.PrintList();
+        testList.Print();
     }
 
     return 0;

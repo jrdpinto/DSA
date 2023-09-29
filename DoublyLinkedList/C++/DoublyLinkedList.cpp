@@ -4,35 +4,35 @@ int main()
 {
     {
         DoublyLinkedList<int> testList{1, 2, 3, 4, 5};
-        testList.PrintList();
+        testList.Print();
         
         std::cout << "Appending 6, 7, 8" << std::endl;
         testList.Append(6);
         testList.Append(7);
         testList.Append(8);
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Appending 9, 10, 11" << std::endl;
         testList.Append(9, 10, 11);
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Prepending -1" << std::endl;
         testList.Prepend(-1);
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Prepending -2, -3, -4" << std::endl;
         testList.Prepend(-2, -3, -4);
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Setting '1' to 0" << std::endl;
         testList.Set(4, 0);
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Deleting elements in reverse" << std::endl;
         while (testList.GetLength() > 0)
         {
             testList.DeleteLast();
-            testList.PrintList();
+            testList.Print();
         }
 
         std::cout << std::endl;
@@ -40,13 +40,13 @@ int main()
 
     {
         DoublyLinkedList<int> testList{1, 2, 3, 4, 5};
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Deleting elements from the front" << std::endl;
         while (testList.GetLength() > 0)
         {
             testList.DeleteFirst();
-            testList.PrintList();
+            testList.Print();
         }
 
         std::cout << std::endl;
@@ -54,7 +54,7 @@ int main()
 
     {
         DoublyLinkedList<int> testList{1, 2, 3, 4, 5};
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Deleting random elements" << std::endl;
         while (testList.GetLength() > 0)
@@ -62,7 +62,7 @@ int main()
             int randomIndex = rand() % testList.GetLength();
             std::cout << "Deleting index: " << randomIndex << std::endl;
             testList.Delete(randomIndex);
-            testList.PrintList();
+            testList.Print();
         }
 
         std::cout << std::endl;
@@ -72,7 +72,7 @@ int main()
         std::cout << "Running node retrieval test" << std::endl;
 
         DoublyLinkedList<int> testList{1, 2, 3, 4, 5};
-        testList.PrintList();
+        testList.Print();
 
         auto retrievalTest = [&](int targetIndex, int expectedValue) 
         {
