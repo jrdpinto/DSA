@@ -141,6 +141,20 @@ int main()
 
         testList.Clear();
         testList.SwapFirstLast();
+
+        std::cout << std::endl;
+    }
+
+    {
+        std::cout << "Node reversal" << std::endl;
+        DoublyLinkedList<int> testList{1,2,3};
+        testList.PrintList();
+
+        std::cout << "Reversing list" << std::endl;
+        testList.Reverse();
+        testList.PrintList();
+
+        std::cout << std::endl;
     }
 
     return 0;

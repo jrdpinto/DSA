@@ -292,6 +292,39 @@ public:
         std::swap(head_->value, tail_->value);
     }
 
+    // Interview question - Reverse list
+    // Implement a member function called reverse() that reverses the order of the nodes in the list.
+    //
+    // Input:
+    // The function is a member of the DoublyLinkedList class, which has a head and a tail pointer, 
+    // as well as a length attribute.
+    // 
+    // Output:
+    // No explicit output is returned. However, the function should modify the doubly linked list
+    // such that the order of the nodes is reversed.
+    // 
+    // Constraints:
+    // The doubly linked list may be empty, have only one node, or have two or more nodes.
+
+    void Reverse()
+    {
+        if (length_ < 2)
+        {
+            return;
+        }
+
+        Node* currentNode = head_;
+        Node* nextNode = nullptr;
+        while (currentNode)
+        {
+            nextNode = currentNode->next;
+            std::swap(currentNode->next, currentNode->previous);
+            currentNode = nextNode;
+        }
+
+        std::swap(head_, tail_);
+    }
+
 private:
     Node* head_ = nullptr;
     Node* tail_ = nullptr;
