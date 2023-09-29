@@ -105,23 +105,23 @@ int main()
         std::cout << "Insertion test" << std::endl;
 
         DoublyLinkedList<int> testList;
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Inserting at head" << std::endl;
         testList.Insert(0, 0);
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Inserting at head" << std::endl;
         testList.Insert(0, -1);
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Inserting at tail" << std::endl;
         testList.Insert(1, 2);
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Inserting after tail" << std::endl;
         testList.Insert(testList.GetLength(), 3);
-        testList.PrintList();
+        testList.Print();
 
         std::cout << std::endl;
     }
@@ -129,15 +129,15 @@ int main()
     {
         std::cout << "Swap test" << std::endl;
         DoublyLinkedList<int> testList{1,2};
-        testList.PrintList();
+        testList.Print();
 
         testList.SwapFirstLast();
-        testList.PrintList();
+        testList.Print();
 
         testList.Append(3, 4, 5);
-        testList.PrintList();
+        testList.Print();
         testList.SwapFirstLast();
-        testList.PrintList();
+        testList.Print();
 
         testList.Clear();
         testList.SwapFirstLast();
@@ -148,13 +148,31 @@ int main()
     {
         std::cout << "Node reversal" << std::endl;
         DoublyLinkedList<int> testList{1,2,3};
-        testList.PrintList();
+        testList.Print();
 
         std::cout << "Reversing list" << std::endl;
         testList.Reverse();
-        testList.PrintList();
+        testList.Print();
 
         std::cout << std::endl;
+    }
+
+    {
+        auto palindromeTest = [](DoublyLinkedList<int>& list)
+        {
+            list.Print();
+            std::cout << "List " << (list.IsPalindrome() ? "is " : "is not ") << "a palindrome" << std::endl;
+            std::cout << std::endl;
+        };
+
+        std::cout << "Palindrome test" << std::endl;
+        palindromeTest(DoublyLinkedList<int>{1});
+        palindromeTest(DoublyLinkedList<int>{1,1});
+        palindromeTest(DoublyLinkedList<int>{1,2,1});
+        palindromeTest(DoublyLinkedList<int>{1,2,3});
+        palindromeTest(DoublyLinkedList<int>{1,2,3,2,1});
+        palindromeTest(DoublyLinkedList<int>{0,0,0});
+        palindromeTest(DoublyLinkedList<int>());
     }
 
     return 0;

@@ -325,6 +325,60 @@ public:
         std::swap(head_, tail_);
     }
 
+    // Interview question - Palindrome Checker
+    // Implement a member function called isPalindrome() that checks if the list is a palindrome,
+    // i.e., its elements read the same forward and backward.
+    // 
+    // Input:
+    // The function is a member of the DoublyLinkedList class, which has a head and a tail pointer,
+    // as well as a length attribute.
+    // 
+    // Output:
+    // The function should return a boolean value indicating whether the doubly linked list is a
+    // palindrome or not.
+    // 
+    // Constraints:
+    // The doubly linked list may be empty, have only one node, or have two or more nodes.
+    // 
+    // Example:
+    // 
+    // Consider the following doubly linked list:
+    //     Head: 1
+    //     Tail: 1
+    //     Length: 5
+    //      
+    //     Doubly Linked List:
+    //     1 <-> 2 <-> 3 <-> 2 <-> 1
+    // 
+    // After calling isPalindrome(), the result should be true as the list is a palindrome.
+
+    bool IsPalindrome()
+    {
+        if (length_ <= 1)
+        {
+            return true;
+        }
+
+        bool palindrome = true;
+        Node* left = head_;
+        Node* right = tail_;
+        int currentIndex = 0;
+        while (currentIndex < (int)length_ / 2)
+        {
+            if (left->value != right->value)
+            {
+                palindrome = false;
+                break;
+            }
+
+            left = left->next;
+            right = right->previous;
+            ++currentIndex;
+        }
+
+        return palindrome;
+    }
+
 private:
     Node* head_ = nullptr;
     Node* tail_ = nullptr;
