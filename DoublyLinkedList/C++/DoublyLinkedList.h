@@ -379,6 +379,116 @@ public:
         return palindrome;
     }
 
+    // Interview question - Swap nodes in pairs
+
+    // Implement a member function called swapPairs() that swaps the values of every two adjacent
+    //  nodes in the list.
+    // 
+    // Note: This DoublyLinkedList does not have a tail pointer which will make the implementation
+    // easier.
+    // 
+    // Input:
+    // The function is a member of the DoublyLinkedList class, which has a head and a tail pointer,
+    // as well as a length attribute.
+    // 
+    // Output:
+    // No explicit output is returned. However, the function should modify the doubly linked list
+    // such that the values of every two adjacent nodes are swapped.
+    // 
+    // Constraints:
+    // The doubly linked list may be empty, have only one node, or have two or more nodes.
+    // 
+    // Example:
+    // 
+    // Consider the following doubly linked list:
+    // 
+    //     Head: 1
+    //     Tail: 6
+    //     Length: 6
+    //      
+    //     Doubly Linked List:
+    //     1 <-> 2 <-> 3 <-> 4 <-> 5 <-> 6
+    // 
+    // After calling swapPairs(), the list should be:
+    // 
+    //     Head: 2
+    //     Tail: 5
+    //     Length: 6
+    //      
+    //     Doubly Linked List:
+    //     2 <-> 1 <-> 4 <-> 3 <-> 6 <-> 5
+    // 
+    // Consider the following doubly linked list:
+    // 
+    //     Head: 1
+    //     Tail: 5
+    //     Length: 5
+    //      
+    //     Doubly Linked List:
+    //     1 <-> 2 <-> 3 <-> 4 <-> 5
+    // 
+    // After calling swapPairs(), the list should be:
+    // 
+    //     Head: 2
+    //     Tail: 4
+    //     Length: 5
+    //      
+    //     Doubly Linked List:
+    //     2 <-> 1 <-> 4 <-> 3 <-> 5
+    // 
+    // Note that the pointers to the nodes themselves are updated to achieve the swapping of adjacent
+    // nodes. Do not update the values of the nodes.
+
+    void SwapPairs()
+    {
+        if (length_ < 2)
+        {
+            return;
+        }
+
+        Node* firstNode = head_;
+        Node* secondNode = nullptr;
+        while (firstNode)
+        {
+            secondNode = firstNode->next;
+            if (!secondNode)
+            {
+                break;
+            }
+            Node* thirdNode = secondNode->next;
+
+            firstNode->next = thirdNode;
+            secondNode->next = firstNode;
+
+            Node* previous = firstNode->previous;
+            firstNode->previous = secondNode;
+            secondNode->previous = previous;
+            if (previous)
+            {
+                previous->next = secondNode;
+            }
+
+            if (thirdNode)
+            {
+                thirdNode->previous = firstNode;
+            }
+
+            if (head_ == firstNode)
+            {
+                head_ = secondNode;
+            }
+
+            if (tail_ == secondNode)
+            {
+                tail_ = firstNode;
+            }
+
+            // Jump to the next pair
+            firstNode = thirdNode;
+        }
+    }
+
+
 private:
     Node* head_ = nullptr;
     Node* tail_ = nullptr;

@@ -175,5 +175,20 @@ int main()
         palindromeTest(DoublyLinkedList<int>());
     }
 
+    {
+        std::cout << "Swapping pairs test" << std::endl;
+        auto swapPairsTest = [](DoublyLinkedList<int>& list)
+        {
+            list.Print();
+            std::cout << "Swapping pairs" << std::endl;
+            list.SwapPairs();
+            list.Print();
+        };
+
+        swapPairsTest(DoublyLinkedList<int>{1, 2, 3, 4, 5});
+        swapPairsTest(DoublyLinkedList<int>{1, 2, 3, 4});
+        swapPairsTest(DoublyLinkedList<int>{1, 2});
+    }
+
     return 0;
 }
