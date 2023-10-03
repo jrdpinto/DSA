@@ -70,6 +70,26 @@ public:
         ++height_;
     }
 
+    T Pop()
+    {
+        if (top_)
+        {
+            T temp = top_->value;
+
+            Node* next = top_->next;
+            delete(top_);
+            top_ = next;
+
+            --height_;
+
+            return temp;
+        }
+        else
+        {
+            throw std::underflow_error("Pop() called on empty stack");
+        }
+    }
+
     void Print()
     {
         Node* currentNode = top_;
