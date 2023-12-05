@@ -10,6 +10,9 @@ int main()
         testQueue.Enqueue(2);
         testQueue.Enqueue(3);
         testQueue.Print();
+        std::cout << "Emptying queue" << std::endl;
+        testQueue.Clear();
+        std::cout << "Length: " << testQueue.GetLength() << std::endl;
         std::cout << std::endl;
 
         std::cout << "Testing variadic 'Enqueue()'" << std::endl;

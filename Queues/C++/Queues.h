@@ -43,6 +43,7 @@ public:
             temp = next;
         }
 
+        first_ = last_ = nullptr;
         length_ = 0;
     }
 
