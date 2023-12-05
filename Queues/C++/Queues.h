@@ -30,6 +30,20 @@ public:
 
     ~Queue()
     {
+        Clear();
+    }
+
+    void Clear()
+    {
+        Node* temp = first_;
+        while (temp)
+        {
+            Node* next = temp->next;
+            delete(temp);
+            temp = next;
+        }
+
+        length_ = 0;
     }
 
     void Enqueue(T value)
