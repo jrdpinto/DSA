@@ -96,6 +96,63 @@ bool IsBalancedParentheses(const std::string& parentheses)
     return parenthesesStack.GetHeight() == 0;
 }
 
+// Interview Question - Sort Stack 
+// 
+// Implement a function called sortStack() that sorts a given stack of integers in ascending order using an
+// additional stack.
+// Input:
+// The function takes a reference to a stack of integers inputStack, with an arbitrary size.
+// 
+// Output:
+// The function should not return any value, but it should modify the input stack in-place such that the
+// elements are sorted in ascending order, with the smallest element at the top.
+// 
+// Constraints:
+// The input stack may contain positive or negative integers. The function must use only one additional
+// stack for sorting purposes, and no other data structures are allowed.
+// 
+// Examples:
+// Consider the following input stack:
+//     inputStack:
+//     5
+//     2
+//     7
+//     1
+// 
+// After calling sortStack(inputStack), the input stack should be:
+//     inputStack:
+//     1
+//     2
+//     5
+//     7
+
+void SortStack(Stack<int>& inputStack)
+{
+    Stack<int> additionalStack;
+
+    while (inputStack.GetHeight() > 0)
+    {
+        int temp = inputStack.Pop();
+        if (additionalStack.GetHeight() == 0 || additionalStack.Peek() <= temp)
+        {
+            additionalStack.Push(temp);
+        }
+        else
+        {
+            while (additionalStack.GetHeight() > 0 && additionalStack.Peek() > temp)
+            {
+                inputStack.Push(additionalStack.Pop());
+            }
+
+            additionalStack.Push(temp);
+        }
+    }
+
+    while (additionalStack.GetHeight() > 0)
+    {
+        inputStack.Push(additionalStack.Pop());
+    }
+}
 
 int main()
 {
@@ -126,10 +183,10 @@ int main()
         std::string inputString("Hello!");
         std::cout << "Input string " << inputString.c_str() << std::endl;
         std::cout << "Output: " << ReverseString(inputString).c_str() << std::endl;
+        std::cout << std::endl;
     }
 
     {
-        std::cout << std::endl;
         std::cout << "Running balanced parentheses tests" << std::endl;
 
         auto testCase = [](const char* testString) {
@@ -146,6 +203,24 @@ int main()
         testCase("(abc(deeewf))()");
         testCase("(abc(deeewf)))");
 
+        std::cout << std::endl;
+    }
+
+    {
+        std::cout << "Testing stack sort" << std::endl;
+
+        auto testCase = [](Stack<int>& unsortedStack) {
+            unsortedStack.Print();
+            SortStack(unsortedStack);
+            std::cout << "Output - " << std::endl;
+            unsortedStack.Print();
+            std::cout << std::endl;
+        };
+
+        testCase(Stack<int>{1, 7, 2, 5});
+        testCase(Stack<int>{1,2,3});
+        testCase(Stack<int>{});
+        testCase(Stack<int>{-1, 3890,22, -18117, 2});
     }
 
     return 0;
