@@ -90,6 +90,18 @@ public:
         }
     }
 
+    T Peek()
+    {
+        if (top_)
+        {
+            return top_->value;
+        }
+        else
+        {
+            throw std::underflow_error("Peek() called on empty stack");
+        }
+    }
+
     void Print()
     {
         Node* currentNode = top_;
