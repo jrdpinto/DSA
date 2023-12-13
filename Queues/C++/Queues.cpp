@@ -1,4 +1,5 @@
 #include "Queues.h"
+#include "QueueUsingStacks.h"
 
 int main()
 {
@@ -27,6 +28,17 @@ int main()
             testQueue.Print();
             std::cout << "Value removed: " << value << std::endl;
         }
+
+        std::cout << std::endl;
+    }
+
+    {
+        std::cout << "Testing queue with stacks" << std::endl;
+        QueueUsingTwoStacks<int> test;
+        test.Enqueue(1);
+        test.Enqueue(2, 3, 4, 5, 6);
+        test.Print();
+        std::cout << std::endl;
     }
 
     return 0;
