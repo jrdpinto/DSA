@@ -11,13 +11,10 @@ private:
 public:
     int Front() 
     {
-        if (stack2.empty()) 
+        while (!stack1.empty()) 
         {
-            while (!stack1.empty()) 
-            {
-                stack2.push(stack1.top());
-                stack1.pop();
-            }
+            stack2.push(stack1.top());
+            stack1.pop();
         }
 
         if (stack2.empty()) 
@@ -158,5 +155,19 @@ public:
     //     to stack2 in a manner that the front-most item in the queue becomes accessible at the
     //     top of stack2.
 
+    void Dequeue()
+    {
+        if (IsEmpty())
+        {
+            return;
+        }
 
+        while (!stack1.empty()) 
+        {
+            stack2.push(stack1.top());
+            stack1.pop();
+        }
+
+        stack2.pop();
+    }
 };

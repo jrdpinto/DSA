@@ -39,6 +39,29 @@ int main()
         test.Enqueue(2, 3, 4, 5, 6);
         test.Print();
         std::cout << std::endl;
+
+        std::cout << "Testing dequeue" << std::endl;
+        test.Dequeue();
+        test.Print();
+        std::cout << std::endl;
+    }
+
+    {
+        std::cout << "Enqueuing values of 1 and 2, then dequeuing, then enqueuing values of 3 and 4, then dequeuing again:\n";
+        QueueUsingTwoStacks<int> test;
+        test.Enqueue(1);
+        test.Enqueue(2);
+        test.Dequeue();
+        test.Enqueue(3);
+        test.Enqueue(4);
+        test.Dequeue();
+
+        int frontValue = test.Front();
+        std::cout << "Front value: " << frontValue << std::endl;
+        test.Dequeue();
+        frontValue = test.Front();
+        std::cout << "Front value: " << frontValue << std::endl;
+        test.Dequeue();
     }
 
     return 0;
