@@ -5,45 +5,56 @@ template <class T>
 class BinaryTreeNode
 {
 public:
-    T _value;
-    BinaryTreeNode* _left;
-    BinaryTreeNode* _right;
-
-    BinaryTreeNode(T value)
-        : _value(value)
-        , _left(nullptr)
-        , _right(nullptr)
+    struct Node
     {
-    }
+        T value;
+        Node* left = nullptr;
+        Node* right = nullptr;
+
+        Node(T value) : value(value)
+        {
+        }
+
+        ~Node()
+        {
+            if (left)
+            {
+                delete left;
+            }
+
+            if (right)
+            {
+                delete right;
+            }
+        }
+    };
+
+    BinaryTreeNode() = default;
 
     ~BinaryTreeNode()
     {
-        if (_left)
+        if (root_)
         {
-            delete _left;
-        }
-
-        if (_right)
-        {
-            delete _right;
+            delete root_;
         }
     }
 
-    void Add(T value)
+    void Insert(T value)
     {
-        if (value < _value)
-        {
-            AddToNodeOrSetValue(_left, value);
-        }
-        else if (value > _value)
-        {
-            AddToNodeOrSetValue(_right, value);
-        }
+        //if (value < value_)
+        //{
+        //    AddToNodeOrSetValue(left_, value);
+        //}
+        //else if (value > value_)
+        //{
+        //    AddToNodeOrSetValue(right_, value);
+        //}
     }
 
 private:
+    Node* root_ = nullptr;
 
-    void AddToNodeOrSetValue(BinaryTreeNode* node, T value)
+    /*void AddToNodeOrSetValue(BinaryTreeNode* node, T value)
     {
         if (node)
         {
@@ -53,5 +64,5 @@ private:
         {
             node = new BinaryTreeNode<T>(value);
         }
-    }
+    }*/
 };
