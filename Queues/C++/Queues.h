@@ -63,7 +63,7 @@ public:
         ++length_;
     }
 
-    template <typename T, typename... Args> void Enqueue(T first, Args... args)
+    template <typename U, typename... Args> void Enqueue(U first, Args... args)
     {
         Enqueue(first);
         Enqueue(args...);
