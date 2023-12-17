@@ -158,7 +158,7 @@ int main()
     }
 
     {
-        auto palindromeTest = [](DoublyLinkedList<int>& list)
+        auto palindromeTest = [](DoublyLinkedList<int>&& list)
         {
             list.Print();
             std::cout << "List " << (list.IsPalindrome() ? "is " : "is not ") << "a palindrome" << std::endl;
@@ -177,7 +177,7 @@ int main()
 
     {
         std::cout << "Swapping pairs test" << std::endl;
-        auto swapPairsTest = [](DoublyLinkedList<int>& list)
+        auto swapPairsTest = [](DoublyLinkedList<int>&& list)
         {
             list.Print();
             std::cout << "Swapping pairs" << std::endl;

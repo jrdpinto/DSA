@@ -176,7 +176,7 @@ public:
         Delete(0);
     }
 
-    void Print()
+    void Print() const
     {
         Node* currentNode = head_;
         std::stringstream ss;
