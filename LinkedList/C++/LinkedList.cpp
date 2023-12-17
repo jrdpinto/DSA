@@ -1,14 +1,15 @@
 ﻿#include "LinkedList.h"
+#include <cmath>
 
 using namespace std;
 
 template <typename T>
-void RunMiddleNodeTest(LinkedList<T>& list)
+void RunMiddleNodeTest(LinkedList<T>&& list)
 {
     std::cout << std::endl << "Finding middle node in: ";
     list.Print();
 
-    LinkedList<T>::Node* middleNode = list.FindMiddleNode();
+    auto* middleNode = list.FindMiddleNode();
     if (middleNode)
     {
         std::cout << "Middle node: " << middleNode->value << std::endl;
@@ -59,7 +60,7 @@ int main()
         testList.Print();
 
         std::cout << "Deleting 2" << std::endl;
-        testList.DeleteNode(2);
+        testList.DeleteNodeAtIndex(2);
         testList.Print();
 
         int numElements = testList.GetLength();
@@ -89,7 +90,7 @@ int main()
         for (int i = 0; i < numElements; ++i)
         {
             std::cout << "Deleting first element" << std::endl;
-            testList2.DeleteNode(0);
+            testList2.DeleteNodeAtIndex(0);
             testList2.Print();
         }
     }

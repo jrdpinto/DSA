@@ -113,15 +113,15 @@ public:
 
     void DeleteLast()
     {
-        DeleteNode(length_ - 1);
+        DeleteNodeAtIndex(length_ - 1);
     }
 
     void DeleteFirst()
     {
-        DeleteNode(0);
+        DeleteNodeAtIndex(0);
     }
 
-    void DeleteNode(int index)
+    void DeleteNodeAtIndex(int index)
     {
         Node* previous = nullptr;
         Node* target = GetNode(index, previous);
