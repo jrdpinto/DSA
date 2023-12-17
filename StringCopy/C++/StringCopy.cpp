@@ -2,16 +2,16 @@
 
 #include <iostream>
 
-void StringCopy(char* from, char* to)
+void StringCopy(const char* from, char* to)
 {
     // The assignment expression returns the value that was assigned. When
-    // this value is '\0', the expression evaluations to false, which
+    // this value is '\0', the expression evaluates to false, which
     // terminates the loop.
-    for (int i = 0; to[i] = from[i]; ++i);
+    for (int i = 0; (to[i] = from[i]); ++i);
 }
 
 // Assuming both strings are properly null - terminated
-void StringCopy_BoundsCheck(char* from, char* to)
+void StringCopy_BoundsCheck(const char* from, char* to)
 {
     for (int i = 0; from[i] != '\0'; ++i)
     {
@@ -27,7 +27,7 @@ void StringCopy_BoundsCheck(char* from, char* to)
     }
 }
 
-void StringMemCopy(char* from, char* to, size_t destinationSize)
+void StringMemCopy(const char* from, char* to, size_t destinationSize)
 {
     size_t sourceSize = strlen(from);
     size_t numCharsToCopy = std::min(sourceSize, destinationSize-1);
@@ -40,7 +40,7 @@ void StringMemCopy(char* from, char* to, size_t destinationSize)
     }
 }
 
-void PrintStrings(char* from, char* to)
+void PrintStrings(const char* from, char* to)
 {
     std::cout << "Original: " << from << std::endl;
     std::cout << "Destination: " << to << std::endl;
@@ -48,8 +48,8 @@ void PrintStrings(char* from, char* to)
 
 int main()
 {
-    char* original = "Test";
-    char* second = "Second Test";
+    const char* original = "Test";
+    const char* second = "Second Test";
     char destination[5] = "";
 
     PrintStrings(original, destination);
