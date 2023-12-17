@@ -209,7 +209,7 @@ int main()
     {
         std::cout << "Testing stack sort" << std::endl;
 
-        auto testCase = [](Stack<int>& unsortedStack) {
+        auto testCase = [](Stack<int>&& unsortedStack) {
             unsortedStack.Print();
             SortStack(unsortedStack);
             std::cout << "Output - " << std::endl;
