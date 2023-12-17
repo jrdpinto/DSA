@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <initializer_list>
+#include <cassert>
 
 template <typename T>
 class LinkedList
@@ -576,7 +577,7 @@ private:
         Node* node = nullptr;
         previousNode = nullptr;
 
-        _ASSERT(index < length_);
+        assert(index < length_);
         if (length_ < 1 || index >= length_)
         {
             return node;
