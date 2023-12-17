@@ -69,3 +69,6 @@ bld/
 
 # Visual Studio 2019 cache/options directory
 .vs/
+
+# Visual Studio Code
+build/
