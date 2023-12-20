@@ -27,6 +27,37 @@ public:
                 delete right;
             }
         }
+
+        bool Insert(Node* newNode)
+        {
+            bool nodeInserted = false;
+            Node** pointerToTargetNode = nullptr;
+
+            if (newNode->value > this->value)
+            {
+                pointerToTargetNode = &right;
+            }
+            else if (newNode->value < this->value)
+            {
+                pointerToTargetNode = &left;
+            }
+
+            if (pointerToTargetNode)
+            {
+                Node*& targetNode = *pointerToTargetNode;
+                if (targetNode)
+                {
+                    nodeInserted = (targetNode)->Insert(newNode);
+                }
+                else
+                {
+                    nodeInserted = true;
+                    targetNode = newNode;
+                }
+            }
+
+            return nodeInserted;
+        }
     };
 
     BinaryTreeNode() = default;
@@ -39,30 +70,20 @@ public:
         }
     }
 
-    void Insert(T value)
+    bool Insert(T value)
     {
-        //if (value < value_)
-        //{
-        //    AddToNodeOrSetValue(left_, value);
-        //}
-        //else if (value > value_)
-        //{
-        //    AddToNodeOrSetValue(right_, value);
-        //}
+        Node* newNode = new Node(value);
+        if (root_)
+        {
+            return root_->Insert(newNode);
+        }
+        else
+        {
+            root_ = newNode;
+            return true;
+        }
     }
 
 private:
     Node* root_ = nullptr;
-
-    /*void AddToNodeOrSetValue(BinaryTreeNode* node, T value)
-    {
-        if (node)
-        {
-            node->Add(value);
-        }
-        else
-        {
-            node = new BinaryTreeNode<T>(value);
-        }
-    }*/
 };

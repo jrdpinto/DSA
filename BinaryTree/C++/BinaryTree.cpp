@@ -9,7 +9,9 @@ int main()
     BinaryTreeNode<int> rootNode;
     for (int i = 0; i < sizeof(unsortedNumbers) / sizeof(int); ++i)
     {
-        rootNode.Insert(unsortedNumbers[i]);
+        int number = unsortedNumbers[i];
+        bool success = rootNode.Insert(number);
+        std::cout << "Value: " << number << " " << (success ? "inserted" : "not inserted") << std::endl;
     }
 
     return 0;
