@@ -2,7 +2,7 @@
 #include <iostream>
 
 template <class T>
-class BinaryTreeNode
+class BinaryTree
 {
 public:
     struct Node
@@ -58,11 +58,30 @@ public:
 
             return nodeInserted;
         }
+
+        bool Contains(const T& value)
+        {
+            bool valueFound = this->value == value;
+
+            if(!valueFound)
+            {
+                if (left && value <= this->value)
+                {
+                    valueFound = left->Contains(value);
+                }
+                else if (right && value >= this->value)
+                {
+                    valueFound = right->Contains(value);
+                }
+            }
+
+            return valueFound;
+        }
     };
 
-    BinaryTreeNode() = default;
+    BinaryTree() = default;
 
-    ~BinaryTreeNode()
+    ~BinaryTree()
     {
         if (root_)
         {
@@ -81,6 +100,18 @@ public:
         {
             root_ = newNode;
             return true;
+        }
+    }
+
+    bool Contains(const T& value)
+    {
+        if (root_)
+        {
+            return root_->Contains(value);
+        }
+        else
+        {
+            return false;
         }
     }
 

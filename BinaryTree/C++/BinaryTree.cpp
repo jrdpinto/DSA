@@ -6,13 +6,24 @@ int main()
 {
     int unsortedNumbers[] = { 0, 1, 3, 453, 233, 43, 123, 423 ,23, 102, 43, 42, 65, 4455, 20 };
 
-    BinaryTreeNode<int> rootNode;
+    BinaryTree<int> testTree;
     for (int i = 0; i < sizeof(unsortedNumbers) / sizeof(int); ++i)
     {
         int number = unsortedNumbers[i];
-        bool success = rootNode.Insert(number);
+        bool success = testTree.Insert(number);
         std::cout << "Value: " << number << " " << (success ? "inserted" : "not inserted") << std::endl;
     }
+
+    auto containsTest = [&](int value) {
+        std::cout << "Contains " << value << ": "<< (testTree.Contains(value) ? "True" : "False") << std::endl;
+    }; 
+
+    std::cout << std::endl;
+    containsTest(-100);
+    containsTest(0);
+    containsTest(123);
+    containsTest(121);
+    containsTest(2);
 
     return 0;
 }
