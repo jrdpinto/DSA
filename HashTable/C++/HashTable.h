@@ -1,5 +1,6 @@
 #pragma once
 #include <array>
+#include <functional>
 #include <initializer_list>
 #include <iostream>
 
@@ -23,7 +24,7 @@ public:
     {
         for (const auto& pair : initialList)
         {
-            // TODO: Insert values
+            Set(pair.first, pair.second);
         }
     }
 
@@ -44,8 +45,13 @@ public:
     {
         for(int i = 0; i < SIZE; ++i)
         {
-            std::cout << i << ": " << std::endl;
             Node* node = dataMap_[i];
+            if (node)
+            {
+                std::cout << std::endl;
+                std::cout << "Values at " << i << std::endl;
+            }
+
             while(node != nullptr)
             {
                 Node* next = node->next;
@@ -55,7 +61,28 @@ public:
         }
     }
 
+    void Set(key_type key, value_type value)
+    {
+        size_t index = Hash(key);
+        Node* newNode = new Node(key, value);
+
+        Node* existingNode = dataMap_[index];
+        if (existingNode)
+        {
+            existingNode->next = newNode;
+        }
+        else
+        {
+            dataMap_[index] = newNode;
+        }
+    }
+
 private:
     static const int SIZE = 128;
     std::array<Node*, SIZE> dataMap_ = {nullptr};
+
+    size_t Hash(key_type key)
+    {
+        return std::hash<key_type>{}(key) % SIZE;
+    }
 };
