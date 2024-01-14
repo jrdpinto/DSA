@@ -74,7 +74,7 @@ public:
                 existingNode->value = value;
                 return;
             }
-            else if (existingNode->next = nullptr)
+            else if (existingNode->next == nullptr)
             {
                 targetNode = existingNode;
                 break;
