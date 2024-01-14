@@ -7,6 +7,11 @@ int main()
         test.Set("APWOEIHO208310170", -99);
         test.Set("ZZ", -99);
         test.PrintTable();
+
+        std::cout << std::endl;
+        std::cout << "Testing indexing function" << std::endl;
+        std::cout << "Value at ZZ: " << test["ZZ"] << std::endl;
+        std::cout << "Value at asdf: " << test["asdf"] << std::endl;
     }
 
     return 0;

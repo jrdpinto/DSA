@@ -15,7 +15,7 @@ public:
 
         Node* next = nullptr;
 
-        Node(key_type key, value_type value) : key(key), value(value)
+        Node(const key_type& key, const value_type& value) : key(key), value(value)
         {
         }
     };
@@ -52,7 +52,7 @@ public:
                 std::cout << "Values at " << i << std::endl;
             }
 
-            while(node != nullptr)
+            while(node)
             {
                 Node* next = node->next;
                 std::cout << "Key: " << node->key << " Value: " << node->value << std::endl;
@@ -64,17 +64,58 @@ public:
     void Set(key_type key, value_type value)
     {
         size_t index = Hash(key);
-        Node* newNode = new Node(key, value);
-
         Node* existingNode = dataMap_[index];
-        if (existingNode)
+        Node* targetNode = nullptr;
+
+        while(existingNode)
         {
-            existingNode->next = newNode;
+            if (existingNode->key == key)
+            {
+                existingNode->value = value;
+                return;
+            }
+            else if (existingNode->next = nullptr)
+            {
+                targetNode = existingNode;
+                break;
+            }
+            
+            existingNode = existingNode->next;
+        }
+
+        Node* newNode = new Node(key, value);
+        if (targetNode)
+        {
+            targetNode->next = newNode;
         }
         else
         {
             dataMap_[index] = newNode;
         }
+    }
+
+    value_type Get(const key_type& key)
+    {
+        Node* node = dataMap_[Hash(key)];
+
+        while (node)
+        {
+            if (node->key == key)
+            {
+                return node->value;
+            }
+            else
+            {
+                node = node->next;
+            }
+        }
+
+        return value_type{};
+    }
+
+    value_type operator [] (const key_type& key)
+    {
+        return Get(key);
     }
 
 private:
