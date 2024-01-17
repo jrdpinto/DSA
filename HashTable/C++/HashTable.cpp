@@ -2,6 +2,7 @@
 #include <unordered_map>
 #include <algorithm>
 #include <string>
+#include <vector>
 
 // Interview question - Find first non-repeating character in a string
 // Implement a function called firstNonRepeatingChar() that finds and returns the first non-repeating
@@ -163,6 +164,31 @@ std::vector<int> TwoSum(std::vector<int>& nums, int target)
 	return result;
 }
 
+// Implement a function called subarraySum() that finds a continuous subarray within a given vector
+// of integers that adds up to a specific target number.
+// 
+// Input:
+// The function takes the following inputs:
+//     A constant reference to a vector of integers nums.
+//     An integer target.
+// 
+// Output:
+// The function should return a vector of two integers representing the start and end indices
+// (inclusive) of the continuous subarray in the input vector nums that adds up to the target value.
+// If no such subarray exists, the function should return an empty vector.
+// 
+// Examples:
+// Consider the following input vector and target:
+//     nums: {1, 2, 3, 4, 5}
+//     target: 9
+// 
+// After calling subarraySum(nums, target), the result should be:
+//     {1, 3}
+
+
+
+
+
 int main()
 {
     {
@@ -205,7 +231,8 @@ int main()
 
     {
         std::cout << "Interview question - TwoSum." << std::endl;
-        std::vector<int> result = TwoSum(std::vector<int>{1, 3, 4, 2, 5}, 6);
+        std::vector<int> inputList{1, 3, 4, 2, 5};
+        std::vector<int> result = TwoSum(inputList, 6);
         std::cout << "{1, 3, 4, 2, 5} Result:" << std::endl;
         std::string output;
         for (int num : result)
