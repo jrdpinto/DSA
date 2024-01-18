@@ -185,9 +185,30 @@ std::vector<int> TwoSum(std::vector<int>& nums, int target)
 // After calling subarraySum(nums, target), the result should be:
 //     {1, 3}
 
+std::vector<int> SubarraySum(std::vector<int>& nums, int target)
+{
+    std::vector<int> result;
+    std::unordered_map<int,int> cumulativeSumMap{std::pair<int, int>(0, -1)};
 
+    int cumulativeSum = 0;
+    for (int i = 0; i < nums.size(); ++i)
+    {
+        cumulativeSum += nums[i];
+        auto it = cumulativeSumMap.find(cumulativeSum - target);
+        if (it != cumulativeSumMap.end())
+        {
+            result.push_back((*it).second + 1);
+            result.push_back(i);
+            break;
+        }
+        else
+        {
+            cumulativeSumMap[cumulativeSum] = i;
+        }
+    }
 
-
+    return result;
+}
 
 int main()
 {
@@ -201,6 +222,7 @@ int main()
         std::cout << "Testing indexing function" << std::endl;
         std::cout << "Value at ZZ: " << test["ZZ"] << std::endl;
         std::cout << "Value at asdf: " << test["asdf"] << std::endl;
+        std::cout << std::endl;
     }
 
     {
@@ -211,6 +233,7 @@ int main()
          << std::endl;
         std::cout << "First non-repeating character in 'aaaaaaaa' - " << FirstNonRepeatingChar("aaaaaaaa")
          << std::endl;
+        std::cout << std::endl;
     }
 
     {
@@ -227,12 +250,28 @@ int main()
             }
             std::cout << "}" << std::endl;
         }
+        std::cout << std::endl;
     }
 
     {
         std::cout << "Interview question - TwoSum." << std::endl;
         std::vector<int> inputList{1, 3, 4, 2, 5};
         std::vector<int> result = TwoSum(inputList, 6);
+        std::cout << "{1, 3, 4, 2, 5} Result:" << std::endl;
+        std::string output;
+        for (int num : result)
+        {
+            output.append(std::to_string(num));
+            output.append(" ");
+        }
+        std::cout << output.c_str() << std::endl;
+        std::cout << std::endl;
+    }
+
+    {
+        std::cout << "Interview question - SubarraySum." << std::endl;
+        std::vector<int> inputList{1, 3, 4, 2, 5};
+        std::vector<int> result = SubarraySum(inputList, 9);
         std::cout << "{1, 3, 4, 2, 5} Result:" << std::endl;
         std::string output;
         for (int num : result)
