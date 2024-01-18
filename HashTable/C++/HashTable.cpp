@@ -1,5 +1,6 @@
 #include "HashTable.h"
 #include <unordered_map>
+#include <unordered_set>
 #include <algorithm>
 #include <string>
 #include <vector>
@@ -210,6 +211,60 @@ std::vector<int> SubarraySum(std::vector<int>& nums, int target)
     return result;
 }
 
+// Write a function called findPairs.
+// 
+// This function takes two lists of numbers and a target number.
+// 
+// It then finds pairs of numbers where one number is from the first list and the other is from the
+// second list, and their sum equals the target number. The function returns these pairs.
+// 
+// What Do We Mean by "Pairs"? 
+// Pairs are sets of two numbers. For example, if we have 4 in one list and 6 in another, and our
+// target number is 10, then (4, 6) is a pair that adds up to 10.
+// 
+// Input
+//     A list of numbers stored in a vector called arr1.
+//     Another list of numbers stored in a vector called arr2.
+//     A target number called target.
+// 
+// Output
+// A list of pairs that add up to the target number. Each pair contains one number from arr1 and one
+// number from arr2.
+// 
+// Example
+// Input Lists and Target
+//     First List: [1, 2, 3]
+//     Second List: [4, 5, 6]
+//     Target: 8
+// 
+// Output Pairs
+// [(2, 6), (3, 5)]
+
+std::vector<std::vector<int>> FindPairs(const std::vector<int>& arr1, const std::vector<int>& arr2,
+ int target)
+{
+    std::vector<std::vector<int>> result;
+    std::unordered_set<int> numMap;
+
+    for (int num : arr1)
+    {
+        numMap.insert(num);
+    }
+
+    for (int num : arr2)
+    {
+        int complement = target - num;
+
+        auto it = numMap.find(complement);
+        if (it != numMap.end())
+        {
+            result.push_back({(*it), num});
+        }
+    }
+
+    return result;
+}
+
 int main()
 {
     {
@@ -278,6 +333,26 @@ int main()
         {
             output.append(std::to_string(num));
             output.append(" ");
+        }
+        std::cout << output.c_str() << std::endl;
+        std::cout << std::endl;
+    }
+
+    {
+        std::cout << "Interview question - Find pairs" << std::endl;
+        std::vector<int> inputList{1, 2, 3};
+        std::vector<int> inputList2{4, 5, 6};
+        auto result = FindPairs(inputList, inputList2, 8);
+        std::cout << "{1, 2, 3} {4, 5, 6} Target - 8 Result:" << std::endl;
+        std::string output;
+        for (std::vector<int>& pair : result)
+        {
+            for (int num : pair)
+            {
+                output.append(std::to_string(num));
+                output.append(" ");
+            }
+            output.append("| ");
         }
         std::cout << output.c_str() << std::endl;
     }
