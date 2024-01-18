@@ -265,6 +265,68 @@ std::vector<std::vector<int>> FindPairs(const std::vector<int>& arr1, const std:
     return result;
 }
 
+// Write a function called longestConsecutiveSequence.
+// 
+// This function takes a list of numbers as input and finds the length of the longest sequence of
+// numbers that can be arranged in order.
+// 
+// For example, if the list is [2, 1, 6, 9, 4, 3], the longest sequence in order is [1, 2, 3, 4],
+// and the length is 4.
+// 
+// What Do We Mean by "Sequence in Order"?
+// 
+// A sequence in order is a group of numbers that follow each other without any gaps. For example,
+// 1, 2, 3, 4 is a sequence in order because they follow each other. 1, 3, 4 is not a sequence in
+// order because there is a gap; 2 is missing.
+// 
+// What Do You Need to Do?
+//     Receive a List: The function takes a list of numbers as input.
+//     Look at Each Number: The function examines each number in the list.
+//     Find Starting Points: The function identifies good starting points for sequences.
+//     Check for Next Numbers: For each starting point, the function checks if the next number in
+//     the sequence is in the list.
+//     Count Length: It keeps track of how long each sequence is.
+//     Find Longest: The function identifies which sequence is the longest.
+//     Return Length: Finally, the function returns the length of the longest sequence.
+// 
+// Input
+// A list of numbers stored in a vector called nums.
+// 
+// Output
+// The length of the longest sequence of numbers that can be arranged in order.
+// 
+// Example:
+// Input List
+// [2, 1, 6, 9, 4, 3]
+// 
+// Output Length
+// 4
+
+int LongestConsecutiveSequence(const std::vector<int>& nums) 
+{
+    int longestSequence = 0;
+    std::unordered_set<int> numSet(nums.begin(), nums.end());
+
+    for (int num : numSet)
+    {
+        if (numSet.find(num - 1) == numSet.end())
+        {
+            int currentNum = num;
+            int currentSequence = 1;
+
+            while (numSet.find(currentNum + 1) != numSet.end())
+            {
+                ++currentSequence;
+                ++currentNum;
+            }
+
+            longestSequence = std::max(currentSequence, longestSequence);
+        }
+    }
+
+    return longestSequence;
+}
+
 int main()
 {
     {
@@ -355,6 +417,34 @@ int main()
             output.append("| ");
         }
         std::cout << output.c_str() << std::endl;
+        std::cout << std::endl;
+    }
+
+    {
+        std::cout << "Interview question - Longest consecutive sequence" << std::endl;
+
+        auto testLongestConsecutiveSequence = [] (std::vector<int>& inputList)
+        {
+            int result = LongestConsecutiveSequence(inputList);
+
+            std::string contents;
+            for (int num : inputList)
+            {
+                contents.append(std::to_string(num));
+                contents.append(" ");
+            }
+
+            std::cout << "Input = { " << contents.c_str() << "}" << std::endl;
+            std::cout << "Result: " << result << std::endl;
+        };
+
+        testLongestConsecutiveSequence(std::vector<int>{2,1,6,9,4,3});
+        testLongestConsecutiveSequence(std::vector<int>{});
+        testLongestConsecutiveSequence(std::vector<int>{1});
+        testLongestConsecutiveSequence(std::vector<int>{2,2,2,2,2,2,2});
+        testLongestConsecutiveSequence(std::vector<int>{1, -1, 3, 7, 2, 12, 11, -100, 8, 9});
+        
+        std::cout << std::endl;
     }
 
     return 0;
