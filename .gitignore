@@ -72,3 +72,4 @@ bld/
 
 # Visual Studio Code
 build/
+.vscode/
