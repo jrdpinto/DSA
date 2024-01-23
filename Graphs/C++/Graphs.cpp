@@ -15,5 +15,21 @@ int main()
         testGraph.RemoveEdge("A", "B");
     }
 
+    {
+        Graph testGraph;
+        testGraph.AddNode("a");
+        testGraph.AddNode("b");
+        testGraph.AddNode("c");
+        testGraph.AddNode("d");
+        testGraph.AddNode("e");
+
+        testGraph.AddEdge("a", "b");
+        testGraph.AddEdge("a", "c");
+        testGraph.AddEdge("a", "d");
+        testGraph.AddEdge("d", "e");
+
+        testGraph.RemoveNode("a");
+    }
+
     return 0;
 }

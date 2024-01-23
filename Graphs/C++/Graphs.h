@@ -46,6 +46,24 @@ public:
         return success;
     }
 
+    bool RemoveNode(const std::string& node)
+    {
+        if (nodes_.count(node) == 0)
+        {
+            return false;
+        }
+
+        Edges edges = nodes_[node];
+        for (const std::string& edge : edges)
+        {
+            nodes_[edge].erase(node);
+        }
+
+        nodes_.erase(node);
+
+        return true;
+    }
+
 private:
     std::unordered_map<std::string, Edges> nodes_;
 };
