@@ -11,6 +11,8 @@ int main()
 
         testGraph.AddEdge("A", "B");
         testGraph.AddEdge("A", "B");
+
+        testGraph.RemoveEdge("A", "B");
     }
 
     return 0;

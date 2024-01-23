@@ -31,6 +31,21 @@ public:
         return success;
     }
 
+    bool RemoveEdge(const std::string& node1, const std::string& node2)
+    {
+        if (nodes_.count(node1) == 0 || nodes_.count(node2) == 0)
+        {
+            return false;
+        }
+
+        bool success = true;
+
+        success &= nodes_[node1].erase(node2) == 1;
+        success &= nodes_[node2].erase(node1) == 1;
+
+        return success;
+    }
+
 private:
     std::unordered_map<std::string, Edges> nodes_;
 };
