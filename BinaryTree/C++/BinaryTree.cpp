@@ -30,7 +30,12 @@ int main()
 
     {
         BinaryTree<int> testTree{10, 6, 14, 5, 8, 11, 18};
+
+        std::cout << "Breadth first search: ";
         testTree.BreadthFirstSearch();
+
+        std::cout << "Pre order traversal: ";
+        testTree.DepthFirstPreOrderTraversal();
     }
 
     return 0;

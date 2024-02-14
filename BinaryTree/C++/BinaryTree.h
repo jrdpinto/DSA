@@ -139,7 +139,7 @@ public:
             Node* currentNode = traversalQueue.front();
             traversalQueue.pop();
 
-            std::cout << currentNode->value << std::endl;
+            std::cout << currentNode->value << " ";
 
             if (currentNode->left)
             {
@@ -150,6 +150,34 @@ public:
             {
                 traversalQueue.push(currentNode->right);
             }
+        }
+
+        std::cout << std::endl;
+    }
+
+    void DepthFirstPreOrderTraversal()
+    {
+        if (root_)
+        {
+            DepthFirstPreOrderTraversal(root_);
+            std::cout << std::endl;
+        }
+    }
+
+    // For each node, the left node and all of its children are visited recursively before visiting
+    // the right node
+    void DepthFirstPreOrderTraversal(Node* node)
+    {
+        std::cout << node->value << " ";
+
+        if (node->left)
+        {
+            DepthFirstPreOrderTraversal(node->left);
+        }
+
+        if (node->right)
+        {
+            DepthFirstPreOrderTraversal(node->right);
         }
     }
 
