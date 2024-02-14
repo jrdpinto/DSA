@@ -31,6 +31,8 @@ int main()
     {
         BinaryTree<int> testTree{10, 6, 14, 5, 8, 11, 18};
 
+        std::cout << "Depth: " << testTree.Depth() << std::endl;
+
         std::cout << "Breadth first search: ";
         testTree.BreadthFirstSearch();
 
@@ -45,6 +47,10 @@ int main()
 
         std::cout << "Reverse order traversal: ";
         testTree.DepthFirstReverseOrderTraversal();
+    }
+
+    {
+
     }
 
     return 0;

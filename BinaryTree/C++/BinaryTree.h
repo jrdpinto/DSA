@@ -125,6 +125,39 @@ public:
         }
     }
 
+    int Depth()
+    {
+        int currentDepth = 0, totalDepth = 0;
+
+        if (root_)
+        {
+            auto postOrderTraversal = [&] (auto& self, Node* node) -> void
+            {
+                ++currentDepth;
+                if (currentDepth > totalDepth)
+                {
+                    totalDepth = currentDepth;
+                }
+
+                if (node->left)
+                {
+                    self(self, node->left);
+                    --currentDepth;
+                }
+
+                if (node->right)
+                {
+                    self(self, node->right);
+                    --currentDepth;
+                }
+            };
+
+            postOrderTraversal(postOrderTraversal, root_);
+        }
+
+        return totalDepth;
+    }
+
     void BreadthFirstSearch()
     {
         std::queue<Node*> traversalQueue;
