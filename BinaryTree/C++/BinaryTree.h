@@ -206,6 +206,30 @@ public:
         std::cout << node->value << " ";
     }
 
+    void DepthFirstInOrderTraversal()
+    {
+        if (root_)
+        {
+            DepthFirstInOrderTraversal(root_);
+            std::cout << std::endl;
+        }
+    }
+
+    void DepthFirstInOrderTraversal(Node* node)
+    {
+        if (node->left)
+        {
+            DepthFirstInOrderTraversal(node->left);
+        }
+
+        std::cout << node->value << " ";
+
+        if (node->right)
+        {
+            DepthFirstInOrderTraversal(node->right);
+        }
+    }
+
 private:
     Node* root_ = nullptr;
 };
