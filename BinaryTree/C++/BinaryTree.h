@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include <iostream>
+#include <queue>
+#include <initializer_list>
 
 template <class T>
 class BinaryTree
@@ -81,6 +83,14 @@ public:
 
     BinaryTree() = default;
 
+    BinaryTree(std::initializer_list<T> initialList)
+    {
+        for (const T& value : initialList)
+        {
+            Insert(value);
+        }
+    }
+
     ~BinaryTree()
     {
         if (root_)
@@ -112,6 +122,34 @@ public:
         else
         {
             return false;
+        }
+    }
+
+    void BreadthFirstSearch()
+    {
+        std::queue<Node*> traversalQueue;
+
+        if (root_)
+        {
+            traversalQueue.push(root_);
+        }
+
+        while(!traversalQueue.empty())
+        {
+            Node* currentNode = traversalQueue.front();
+            traversalQueue.pop();
+
+            std::cout << currentNode->value << std::endl;
+
+            if (currentNode->left)
+            {
+                traversalQueue.push(currentNode->left);
+            }
+
+            if (currentNode->right)
+            {
+                traversalQueue.push(currentNode->right);
+            }
         }
     }
 
