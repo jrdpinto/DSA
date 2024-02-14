@@ -42,6 +42,9 @@ int main()
 
         std::cout << "In order traversal: ";
         testTree.DepthFirstInOrderTraversal();
+
+        std::cout << "Reverse order traversal: ";
+        testTree.DepthFirstReverseOrderTraversal();
     }
 
     return 0;

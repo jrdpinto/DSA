@@ -230,6 +230,30 @@ public:
         }
     }
 
+    void DepthFirstReverseOrderTraversal()
+    {
+        if (root_)
+        {
+            DepthFirstReverseOrderTraversal(root_);
+            std::cout << std::endl;
+        }
+    }
+
+    void DepthFirstReverseOrderTraversal(Node* node)
+    {
+        if (node->right)
+        {
+            DepthFirstReverseOrderTraversal(node->right);
+        }
+
+        std::cout << node->value << " ";
+
+        if (node->left)
+        {
+            DepthFirstReverseOrderTraversal(node->left);
+        }
+    }
+
 private:
     Node* root_ = nullptr;
 };
