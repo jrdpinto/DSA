@@ -36,6 +36,9 @@ int main()
 
         std::cout << "Pre order traversal: ";
         testTree.DepthFirstPreOrderTraversal();
+
+        std::cout << "Post order traversal: ";
+        testTree.DepthFirstPostOrderTraversal();
     }
 
     return 0;

@@ -181,6 +181,31 @@ public:
         }
     }
 
+    void DepthFirstPostOrderTraversal()
+    {
+        if (root_)
+        {
+            DepthFirstPostOrderTraversal(root_);
+            std::cout << std::endl;
+        }
+    }
+
+    // For each node, visit the left sub tree, then the right sub tree and finally the node itself
+    void DepthFirstPostOrderTraversal(Node* node)
+    {
+        if (node->left)
+        {
+            DepthFirstPostOrderTraversal(node->left);
+        }
+
+        if (node->right)
+        {
+            DepthFirstPostOrderTraversal(node->right);
+        }
+
+        std::cout << node->value << " ";
+    }
+
 private:
     Node* root_ = nullptr;
 };
