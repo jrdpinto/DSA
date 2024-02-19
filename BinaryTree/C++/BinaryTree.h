@@ -1,7 +1,9 @@
 ﻿#pragma once
+#include <cmath>
 #include <iostream>
-#include <queue>
 #include <initializer_list>
+#include <queue>
+#include <vector>
 
 template <class T>
 class BinaryTree
@@ -125,35 +127,78 @@ public:
         }
     }
 
-    int Depth()
+    // TODO: Rewrite to compute the difference in height between the left/right nodes. If the
+    // difference is ever greater than 1, the tree is not height balanced.
+    bool IsHeightBalanced()
     {
-        int currentDepth = 0, totalDepth = 0;
+        bool heightBalanced = true;
+        std::queue<Node*> nodesAtCurrentDepth;
+        std::vector<bool> depthBalanced;
+        int depth = 0;
 
         if (root_)
         {
-            auto postOrderTraversal = [&] (auto& self, Node* node) -> void
+            nodesAtCurrentDepth.push(root_);
+
+            while(!nodesAtCurrentDepth.empty())
             {
-                ++currentDepth;
-                if (currentDepth > totalDepth)
-                {
-                    totalDepth = currentDepth;
-                }
+                ++depth;
+                int numNodes = (int)nodesAtCurrentDepth.size();
+                depthBalanced.push_back(numNodes == std::pow(2, depth-1));
 
-                if (node->left)
+                for (int i = 0; i < numNodes; ++i)
                 {
-                    self(self, node->left);
-                    --currentDepth;
-                }
+                    Node* node = nodesAtCurrentDepth.front();
+                    nodesAtCurrentDepth.pop();
 
-                if (node->right)
-                {
-                    self(self, node->right);
-                    --currentDepth;
-                }
-            };
+                    if (node->left)
+                    {
+                        nodesAtCurrentDepth.push(node->left);
+                    }
 
-            postOrderTraversal(postOrderTraversal, root_);
+                    if (node->right)
+                    {
+                        nodesAtCurrentDepth.push(node->right);
+                    } 
+                }
+            }
+
+            heightBalanced = depthBalanced[std::max(depth-2, 0)];
         }
+
+        return heightBalanced;
+    }
+
+    int Depth()
+    {
+        if (!root_)
+        {
+            return 0;
+        }
+
+        int currentDepth = 0, totalDepth = 0;
+        auto postOrderTraversal = [&] (auto& self, Node* node) -> void
+        {
+            ++currentDepth;
+            if (currentDepth > totalDepth)
+            {
+                totalDepth = currentDepth;
+            }
+
+            if (node->left)
+            {
+                self(self, node->left);
+                --currentDepth;
+            }
+
+            if (node->right)
+            {
+                self(self, node->right);
+                --currentDepth;
+            }
+        };
+
+        postOrderTraversal(postOrderTraversal, root_);
 
         return totalDepth;
     }

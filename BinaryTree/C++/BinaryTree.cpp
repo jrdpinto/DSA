@@ -47,10 +47,21 @@ int main()
 
         std::cout << "Reverse order traversal: ";
         testTree.DepthFirstReverseOrderTraversal();
+        
+        std::cout << std::endl;
     }
 
     {
+        std::cout << "Height balanced test" << std::endl;
+        auto heightBalanceTest = [] (BinaryTree<int>&& tree) {
+                tree.DepthFirstInOrderTraversal();
+                std::cout << "Tree " << (tree.IsHeightBalanced() ? "is " : "is not ") << "height balanced" 
+                    << std::endl;
+            };
 
+        heightBalanceTest(BinaryTree<int>{3, 9, 20, 15, 7});
+        heightBalanceTest(BinaryTree<int>{10, 6, 14, 5, 8, 11, 18});
+        heightBalanceTest(BinaryTree<int>{1,2,2,3,3,4,4});
     }
 
     return 0;
