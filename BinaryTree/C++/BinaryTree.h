@@ -127,8 +127,7 @@ public:
         }
     }
 
-    // TODO: Rewrite to compute the difference in height between the left/right nodes. If the
-    // difference is ever greater than 1, the tree is not height balanced.
+    // Note: Slower than a DFS search as it does not exit early
     bool IsHeightBalanced()
     {
         bool heightBalanced = true;
@@ -167,6 +166,47 @@ public:
         }
 
         return heightBalanced;
+    }
+
+    // DFS implementation that terminates early if the difference in height between the left and
+    // right subtree on any node is greater than 1
+    bool IsHeightBalanced_DFS()
+    {
+        bool isHeightBalanced = true;
+
+        if (root_)
+        {
+            auto getHeight = [](auto& self, Node* node, bool& heightBalanced) -> int
+                {
+                    int leftTreeHeight = 0, rightTreeHeight = 0;
+
+                    if (node->left)
+                    {
+                        leftTreeHeight = self(self, node->left, heightBalanced);
+                        if (!heightBalanced)
+                        {
+                            return -1;
+                        }
+                    }
+
+                    if (node-> right)
+                    {
+                        rightTreeHeight = self(self, node->right, heightBalanced);
+                        if (!heightBalanced)
+                        {
+                            return -1;
+                        }
+                    }
+
+                    heightBalanced = std::abs(leftTreeHeight - rightTreeHeight) <= 1;
+
+                    return std::max(leftTreeHeight, rightTreeHeight) + 1;
+                };
+            
+            getHeight(getHeight, root_, isHeightBalanced);
+        }
+
+        return isHeightBalanced;
     }
 
     int Depth()

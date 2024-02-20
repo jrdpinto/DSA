@@ -1,4 +1,5 @@
 ﻿#include "BinaryTree.h"
+#include <functional>
 
 using namespace std;
 
@@ -52,16 +53,28 @@ int main()
     }
 
     {
-        std::cout << "Height balanced test" << std::endl;
-        auto heightBalanceTest = [] (BinaryTree<int>&& tree) {
+        auto heightBalanceTest = [] (std::function<bool(BinaryTree<int>&)> fn, BinaryTree<int>& tree,
+         bool expectedValue) 
+            {
                 tree.DepthFirstInOrderTraversal();
-                std::cout << "Tree " << (tree.IsHeightBalanced() ? "is " : "is not ") << "height balanced" 
+                bool outcome = fn(tree);
+
+                std::cout << "Tree " << (outcome ? "is " : "is not ") << "height balanced" 
                     << std::endl;
+                std::cout << (expectedValue == outcome ? "CORRECT " : "WRONG ") << " Expected value: "
+                    << expectedValue << std::endl;
+                std::cout << std::endl;
             };
 
-        heightBalanceTest(BinaryTree<int>{3, 9, 20, 15, 7});
-        heightBalanceTest(BinaryTree<int>{10, 6, 14, 5, 8, 11, 18});
-        heightBalanceTest(BinaryTree<int>{1,2,2,3,3,4,4});
+        std::cout << "Height balanced test using breadth first search" << std::endl;
+        heightBalanceTest(&BinaryTree<int>::IsHeightBalanced, BinaryTree<int>{3, 9, 20, 15, 7}, false);
+        heightBalanceTest(&BinaryTree<int>::IsHeightBalanced, BinaryTree<int>{10, 6, 14, 5, 8, 11, 18}, true);
+        heightBalanceTest(&BinaryTree<int>::IsHeightBalanced, BinaryTree<int>{1,2,2,3,3,4,4}, false);
+
+        std::cout << "Height balanced test using depth first post-order traversal" << std::endl;
+        heightBalanceTest(&BinaryTree<int>::IsHeightBalanced_DFS, BinaryTree<int>{3, 9, 20, 15, 7}, false);
+        heightBalanceTest(&BinaryTree<int>::IsHeightBalanced_DFS, BinaryTree<int>{10, 6, 14, 5, 8, 11, 18}, true);
+        heightBalanceTest(&BinaryTree<int>::IsHeightBalanced_DFS, BinaryTree<int>{1,2,2,3,3,4,4}, false);
     }
 
     return 0;
