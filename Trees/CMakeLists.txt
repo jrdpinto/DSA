@@ -1,11 +1,11 @@
-﻿# BinaryTree root CMake
+﻿# Trees root CMake
 
 cmake_minimum_required (VERSION 3.8)
 
 project("DataStructuresAlgorithms")
 
 # Collect all subdirectories
-file(GLOB sources "*/CMakeLists.txt")
+file(GLOB sources "BinaryTree/*/CMakeLists.txt")
 
 # Iterate over each subdirectory and add it as a subdirectory in the project
 foreach(source ${sources})
