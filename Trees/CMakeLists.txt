@@ -6,6 +6,7 @@ project("DataStructuresAlgorithms")
 
 # Collect all subdirectories
 file(GLOB sources "BinaryTree/*/CMakeLists.txt")
+file(GLOB sources "RedBlackTree/*/CMakeLists.txt")
 
 # Iterate over each subdirectory and add it as a subdirectory in the project
 foreach(source ${sources})
