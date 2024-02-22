@@ -77,5 +77,17 @@ int main()
         heightBalanceTest(&BinaryTree<int>::IsHeightBalanced_DFS, BinaryTree<int>{1,2,2,3,3,4,4}, false);
     }
 
+    {
+        // Invert binary tree
+        std::cout << "Binary Tree inversion" << std::endl;
+        BinaryTree<int> test{4,2,7,1,3,6,9};
+        test.DepthFirstInOrderTraversal();
+
+        test.InvertTree();
+        std::cout << "Result: ";
+        test.DepthFirstInOrderTraversal();
+        std::cout << std::endl;
+    }
+
     return 0;
 }

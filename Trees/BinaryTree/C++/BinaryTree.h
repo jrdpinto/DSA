@@ -127,88 +127,6 @@ public:
         }
     }
 
-    // Note: Slower than a DFS search as it does not exit early
-    bool IsHeightBalanced()
-    {
-        bool heightBalanced = true;
-        std::queue<Node*> nodesAtCurrentDepth;
-        std::vector<bool> depthBalanced;
-        int depth = 0;
-
-        if (root_)
-        {
-            nodesAtCurrentDepth.push(root_);
-
-            while(!nodesAtCurrentDepth.empty())
-            {
-                ++depth;
-                int numNodes = (int)nodesAtCurrentDepth.size();
-                depthBalanced.push_back(numNodes == std::pow(2, depth-1));
-
-                for (int i = 0; i < numNodes; ++i)
-                {
-                    Node* node = nodesAtCurrentDepth.front();
-                    nodesAtCurrentDepth.pop();
-
-                    if (node->left)
-                    {
-                        nodesAtCurrentDepth.push(node->left);
-                    }
-
-                    if (node->right)
-                    {
-                        nodesAtCurrentDepth.push(node->right);
-                    } 
-                }
-            }
-
-            heightBalanced = depthBalanced[std::max(depth-2, 0)];
-        }
-
-        return heightBalanced;
-    }
-
-    // DFS implementation that terminates early if the difference in height between the left and
-    // right subtree on any node is greater than 1
-    bool IsHeightBalanced_DFS()
-    {
-        bool isHeightBalanced = true;
-
-        if (root_)
-        {
-            auto getHeight = [](auto& self, Node* node, bool& heightBalanced) -> int
-                {
-                    int leftTreeHeight = 0, rightTreeHeight = 0;
-
-                    if (node->left)
-                    {
-                        leftTreeHeight = self(self, node->left, heightBalanced);
-                        if (!heightBalanced)
-                        {
-                            return -1;
-                        }
-                    }
-
-                    if (node-> right)
-                    {
-                        rightTreeHeight = self(self, node->right, heightBalanced);
-                        if (!heightBalanced)
-                        {
-                            return -1;
-                        }
-                    }
-
-                    heightBalanced = std::abs(leftTreeHeight - rightTreeHeight) <= 1;
-
-                    return std::max(leftTreeHeight, rightTreeHeight) + 1;
-                };
-            
-            getHeight(getHeight, root_, isHeightBalanced);
-        }
-
-        return isHeightBalanced;
-    }
-
     int Depth()
     {
         if (!root_)
@@ -372,6 +290,117 @@ public:
         }
     }
 
+    // INTERVIEW QUESTIONS
+
+    // Note: Slower than a DFS search as it does not exit early
+    bool IsHeightBalanced()
+    {
+        bool heightBalanced = true;
+        std::queue<Node*> nodesAtCurrentDepth;
+        std::vector<bool> depthBalanced;
+        int depth = 0;
+
+        if (root_)
+        {
+            nodesAtCurrentDepth.push(root_);
+
+            while(!nodesAtCurrentDepth.empty())
+            {
+                ++depth;
+                int numNodes = (int)nodesAtCurrentDepth.size();
+                depthBalanced.push_back(numNodes == std::pow(2, depth-1));
+
+                for (int i = 0; i < numNodes; ++i)
+                {
+                    Node* node = nodesAtCurrentDepth.front();
+                    nodesAtCurrentDepth.pop();
+
+                    if (node->left)
+                    {
+                        nodesAtCurrentDepth.push(node->left);
+                    }
+
+                    if (node->right)
+                    {
+                        nodesAtCurrentDepth.push(node->right);
+                    } 
+                }
+            }
+
+            heightBalanced = depthBalanced[std::max(depth-2, 0)];
+        }
+
+        return heightBalanced;
+    }
+
+    // DFS implementation that terminates early if the difference in height between the left and
+    // right subtree on any node is greater than 1
+    bool IsHeightBalanced_DFS()
+    {
+        bool isHeightBalanced = true;
+
+        if (root_)
+        {
+            auto getHeight = [](auto& self, Node* node, bool& heightBalanced) -> int
+                {
+                    int leftTreeHeight = 0, rightTreeHeight = 0;
+
+                    if (node->left)
+                    {
+                        leftTreeHeight = self(self, node->left, heightBalanced);
+                        if (!heightBalanced)
+                        {
+                            return -1;
+                        }
+                    }
+
+                    if (node-> right)
+                    {
+                        rightTreeHeight = self(self, node->right, heightBalanced);
+                        if (!heightBalanced)
+                        {
+                            return -1;
+                        }
+                    }
+
+                    heightBalanced = std::abs(leftTreeHeight - rightTreeHeight) <= 1;
+
+                    return std::max(leftTreeHeight, rightTreeHeight) + 1;
+                };
+            
+            getHeight(getHeight, root_, isHeightBalanced);
+        }
+
+        return isHeightBalanced;
+    }
+
+    // Invert (i.e: flip) the tree around its root node and return the root of the resulting tree
+    // Trivial to solve but interviewers seem to like this one..
+    Node* InvertTree()
+    {
+        if (root_)
+        {
+            InvertNode(root_);
+        }
+
+        return root_;
+    }
+
 private:
     Node* root_ = nullptr;
+
+    void InvertNode(Node* node)
+    {
+        std::swap(node->left, node->right);
+
+        if (node->left)
+        {
+            InvertNode(node->left);
+        }
+
+        if (node->right)
+        {
+            InvertNode(node->right);
+        }
+    }
 };
