@@ -1,5 +1,5 @@
 # DSA
-A small collection of data structures, algorithms and related interview questions that may be helpful when preparing for technical interviews. This project was created in CMake and C++. Other languages when time permits.
+A small collection of data structures, algorithms and related interview questions that may be helpful when preparing for technical interviews. This project was created in CMake and C++. Other languages will be added when time permits.
 
 Interview questions and example code were sourced from the following resources.
  - [C++ Data Structures & Algorithms + LEETCODE Exercises](https://www.udemy.com/course-dashboard-redirect/?course_id=4453612)
