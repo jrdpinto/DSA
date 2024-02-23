@@ -34,30 +34,22 @@ public:
 
         bool Insert(Node* newNode)
         {
+            if (newNode->value == this->value)
+            {
+                return false;
+            }
+
             bool nodeInserted = false;
-            Node** pointerToTargetNode = nullptr;
+            Node** pointerToTargetNode = (newNode->value > this->value) ? &right : &left;
 
-            if (newNode->value > this->value)
+            if (*pointerToTargetNode)
             {
-                pointerToTargetNode = &right;
+                nodeInserted = (*pointerToTargetNode)->Insert(newNode);
             }
-            else if (newNode->value < this->value)
+            else
             {
-                pointerToTargetNode = &left;
-            }
-
-            if (pointerToTargetNode)
-            {
-                Node*& targetNode = *pointerToTargetNode;
-                if (targetNode)
-                {
-                    nodeInserted = (targetNode)->Insert(newNode);
-                }
-                else
-                {
-                    nodeInserted = true;
-                    targetNode = newNode;
-                }
+                nodeInserted = true;
+                *pointerToTargetNode = &*newNode;
             }
 
             return nodeInserted;
