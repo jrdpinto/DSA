@@ -12,7 +12,7 @@ int main()
         for (int i = 0; i < sizeof(unsortedNumbers) / sizeof(int); ++i)
         {
             int number = unsortedNumbers[i];
-            bool success = testTree.Insert(number);
+            bool success = testTree.Insert(number) != nullptr;
             std::cout << "Value: " << number << " " << (success ? "inserted" : "not inserted") << std::endl;
         }
 

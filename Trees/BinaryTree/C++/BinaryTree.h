@@ -32,27 +32,27 @@ public:
             }
         }
 
-        bool Insert(Node* newNode)
+        Node* Insert(T& value)
         {
-            if (newNode->value == this->value)
+            if (this->value == value)
             {
-                return false;
+                return nullptr;
             }
 
-            bool nodeInserted = false;
-            Node** pointerToTargetNode = (newNode->value > this->value) ? &right : &left;
+            Node* newNode = nullptr;
 
+            Node** pointerToTargetNode = (value > this->value) ? &right : &left;
             if (*pointerToTargetNode)
             {
-                nodeInserted = (*pointerToTargetNode)->Insert(newNode);
+                newNode = (*pointerToTargetNode)->Insert(value);
             }
             else
             {
-                nodeInserted = true;
+                newNode = new Node(value);
                 *pointerToTargetNode = &*newNode;
             }
 
-            return nodeInserted;
+            return newNode;
         }
 
         bool Contains(const T& value)
@@ -93,27 +93,21 @@ public:
         }
     }
 
-    bool Insert(T value)
+    Node* Insert(T value)
     {
-        Node* newNode = new Node(value);
-        bool inserted = false;
+        Node* newNode;
 
         if (root_)
         {
-            inserted = root_->Insert(newNode);
-
-            if (!inserted)
-            {
-                delete newNode;
-            }
+            newNode = root_->Insert(value);
         }
         else
         {
+            newNode = new Node(value);
             root_ = newNode;
-            inserted = true;
         }
 
-        return inserted;
+        return newNode;
     }
 
     bool Contains(const T& value)
