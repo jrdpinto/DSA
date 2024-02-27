@@ -96,15 +96,24 @@ public:
     bool Insert(T value)
     {
         Node* newNode = new Node(value);
+        bool inserted = false;
+
         if (root_)
         {
-            return root_->Insert(newNode);
+            inserted = root_->Insert(newNode);
+
+            if (!inserted)
+            {
+                delete newNode;
+            }
         }
         else
         {
             root_ = newNode;
-            return true;
+            inserted = true;
         }
+
+        return inserted;
     }
 
     bool Contains(const T& value)
