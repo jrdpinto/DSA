@@ -1,6 +1,7 @@
 // Source: https://www.computerenhance.com/p/microsoft-intern-interview-question-ab7
 
 #include <iostream>
+#include <cstring>
 
 void StringCopy(const char* from, char* to)
 {

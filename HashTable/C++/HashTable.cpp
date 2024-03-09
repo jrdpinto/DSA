@@ -423,7 +423,7 @@ int main()
     {
         std::cout << "Interview question - Longest consecutive sequence" << std::endl;
 
-        auto testLongestConsecutiveSequence = [] (std::vector<int>& inputList)
+        auto testLongestConsecutiveSequence = [](const std::vector<int>& inputList)
         {
             int result = LongestConsecutiveSequence(inputList);
 

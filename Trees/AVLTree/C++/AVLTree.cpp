@@ -8,7 +8,7 @@ int main()
     std::cout << "AVL Tree" << std::endl;
 
     {
-        auto avlTreeTest = [] (std::vector<int>& values)
+        auto avlTreeTest = [] (const std::vector<int>& values)
             {
                 AVLTree<int> tree;
                 std::cout << "Inserting: ";

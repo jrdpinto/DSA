@@ -237,7 +237,7 @@ public:
         std::cout << node->value << " ";
     }
 
-    void DepthFirstInOrderTraversal()
+    void DepthFirstInOrderTraversal() const
     {
         if (root_)
         {
@@ -246,7 +246,7 @@ public:
         }
     }
 
-    void DepthFirstInOrderTraversal(Node* node)
+    void DepthFirstInOrderTraversal(Node* node) const
     {
         if (node->left)
         {
@@ -288,7 +288,7 @@ public:
     // INTERVIEW QUESTIONS
 
     // Note: Slower than a DFS search as it does not exit early
-    bool IsHeightBalanced()
+    bool IsHeightBalanced() const
     {
         bool heightBalanced = true;
         std::queue<Node*> nodesAtCurrentDepth;
@@ -330,7 +330,7 @@ public:
 
     // DFS implementation that terminates early if the difference in height between the left and
     // right subtree on any node is greater than 1
-    bool IsHeightBalanced_DFS()
+    bool IsHeightBalanced_DFS() const
     {
         bool isHeightBalanced = true;
 

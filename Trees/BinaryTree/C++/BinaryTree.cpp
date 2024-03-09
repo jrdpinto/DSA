@@ -53,7 +53,7 @@ int main()
     }
 
     {
-        auto heightBalanceTest = [] (std::function<bool(BinaryTree<int>&)> fn, BinaryTree<int>& tree,
+        auto heightBalanceTest = [] (std::function<bool(const BinaryTree<int>&)> fn, const BinaryTree<int>& tree,
          bool expectedValue) 
             {
                 tree.DepthFirstInOrderTraversal();

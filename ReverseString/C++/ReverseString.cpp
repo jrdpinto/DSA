@@ -16,6 +16,7 @@
 
 #include <iostream>
 #include <utility>
+#include <cstring>
 
 void ReverseWithPointers(char* string)
 {

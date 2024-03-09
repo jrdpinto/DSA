@@ -1,5 +1,6 @@
 #pragma once
 #include <initializer_list>
+#include <cmath>
 
 template <class T>
 class AVLTree
