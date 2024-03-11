@@ -1,6 +1,7 @@
 #pragma once
 #include <initializer_list>
 #include <cmath>
+#include <iostream>
 
 template <class T>
 class AVLTree
@@ -149,6 +150,65 @@ public:
         return isHeightBalanced;
     }
 
+    int Depth()
+    {
+        if (!root_)
+        {
+            return 0;
+        }
+
+        int currentDepth = 0, totalDepth = 0;
+        auto postOrderTraversal = [&] (auto& self, Node* node) -> void
+        {
+            ++currentDepth;
+            if (currentDepth > totalDepth)
+            {
+                totalDepth = currentDepth;
+            }
+
+            if (node->left)
+            {
+                self(self, node->left);
+                --currentDepth;
+            }
+
+            if (node->right)
+            {
+                self(self, node->right);
+                --currentDepth;
+            }
+        };
+
+        postOrderTraversal(postOrderTraversal, root_);
+
+        return totalDepth;
+    }
+
+    void DepthFirstInOrderTraversal() const
+    {
+        if (root_)
+        {
+            std::cout << "In order traversal: ";
+            DepthFirstInOrderTraversal(root_);
+            std::cout << std::endl;
+        }
+    }
+
+    void DepthFirstInOrderTraversal(Node* node) const
+    {
+        if (node->left)
+        {
+            DepthFirstInOrderTraversal(node->left);
+        }
+
+        std::cout << node->value << " ";
+
+        if (node->right)
+        {
+            DepthFirstInOrderTraversal(node->right);
+        }
+    }
+
 private:
     Node* root_ = nullptr;
     
@@ -199,11 +259,6 @@ private:
         middleNode->height = std::max(middleNode->left ? middleNode->left->height : 0,
             middleNode->right ? middleNode->right->height : 0) + 1;
 
-        if (targetNode == root_)
-        {
-            root_ = middleNode;
-        }
-
         return middleNode;
     }
 
@@ -225,15 +280,10 @@ private:
         middleNode->height = std::max(middleNode->left ? middleNode->left->height : 0,
             middleNode->right ? middleNode->right->height : 0) + 1;
 
-        if (targetNode == root_)
-        {
-            root_ = middleNode;
-        }
-
         return middleNode;
     }
 
-    Node* RInsert(Node* node, T& value)
+    Node* RInsert(Node* node, T& value, Node* parent = nullptr)
     {
         if (node->value == value)
         {
@@ -245,46 +295,63 @@ private:
         Node** pointerToTargetNode = (value > node->value) ? &node->right : &node->left;
         if (*pointerToTargetNode)
         {
-            newNode = RInsert(*pointerToTargetNode, value);
+            newNode = RInsert(*pointerToTargetNode, value, node);
         }
         else
         {
             newNode = new Node(value);
-            *pointerToTargetNode = &*newNode;
+            *pointerToTargetNode = newNode;
         }
 
         if (newNode)
         {
+            // Check the height of the child node and balance if required
             node->height = std::max(node->left ? node->left->height : 0, node->right ? node->right->height : 0) + 1;
 
             int balanceFactor = node->BalanceFactor();
 
+            Node* returnedNode = nullptr;
             if (balanceFactor > 1)
             {
-                // Rebalances the tree when the left sub tree is taller than the right sub tree
-                if (newNode->value < node->left->value)
-                {
-                    RotateRight(node);
-                }
+                
                 // Rebalances the tree when the inserted node is on the right of the left sub tree
-                else if (newNode->value > node->left->value)
+                if (newNode->value > node->left->value)
                 {
                     node->left = RotateLeft(node->left);
-                    RotateRight(node);
                 }
+
+                // Rebalances the tree when the left sub tree is taller than the right sub tree
+                returnedNode = RotateRight(node);
             }
             else if (balanceFactor < -1)
             {
-                // Rebalances the tree when the right sub tree is taller than the left sub tree
-                if (newNode->value > node->right->value)
-                {
-                    RotateLeft(node);
-                }
                 // Rebalances the tree when the inserted node is on the left of the right sub tree
-                else if (newNode->value < node->right->value)
+                if (newNode->value < node->right->value)
                 {
                     node->right = RotateRight(node->right);
-                    RotateLeft(node);
+                }
+
+                // Rebalances the tree when the right sub tree is taller than the left sub tree
+                returnedNode = RotateLeft(node);
+            }
+
+            if (returnedNode)
+            {
+                if (parent)
+                {
+                    // Ensure that the parent points to the middle node
+                    if (node == parent->right)
+                    {
+                        parent->right = returnedNode;
+                    }
+                    else
+                    {
+                        parent->left = returnedNode;
+                    }
+                }
+                else
+                {
+                    root_ = returnedNode;
                 }
             }
         }
