@@ -49,7 +49,7 @@ public:
             else
             {
                 newNode = new Node(value);
-                *pointerToTargetNode = &*newNode;
+                *pointerToTargetNode = newNode;
             }
 
             return newNode;
