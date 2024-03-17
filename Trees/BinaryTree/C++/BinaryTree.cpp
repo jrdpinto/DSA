@@ -1,8 +1,6 @@
 ﻿#include "BinaryTree.h"
 #include <functional>
 
-using namespace std;
-
 int main()
 {
     {
