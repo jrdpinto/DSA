@@ -36,7 +36,7 @@ void SelectionSort(std::vector<T>& elements)
     {
         int minIndex = i;
 
-        for (int j = i + 1; j < length; j++) 
+        for (int j = i + 1; j < length; ++j) 
         {
             if (elements[j] < elements[minIndex]) 
             {
@@ -48,6 +48,24 @@ void SelectionSort(std::vector<T>& elements)
         {
             std::swap(elements[i], elements[minIndex]);
         }
+    }
+}
+
+template<typename T>
+void InsertionSort(std::vector<T>& arr) 
+{
+    for (int i = 1; i < arr.size(); ++i) 
+    {
+        T key = arr[i];
+        int j = i - 1;
+
+        while (j >= 0 && arr[j] > key) 
+        {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+
+        arr[j + 1] = key;
     }
 }
 
@@ -81,7 +99,7 @@ void SortingTest(std::function<void(std::vector<T>&)> sortFn, const std::vector<
 }
 
 template <typename T>
-std::vector<T> GenerateRandomNumbers(size_t count)
+typename std::enable_if<std::is_arithmetic<T>::value, std::vector<T>>::type GenerateRandomNumbers(size_t count)
 {
     std::vector<T> numbers;
     for (size_t i = 0; i < count; ++i)
@@ -102,6 +120,11 @@ int main()
 
     std::cout << "Selection Sort: " << std::endl;
     SortingTest<int>(SelectionSort<int>, numbers);
+    std::cout << std::endl;
+
+    std::cout << "Insertion Sort: " << std::endl;
+    SortingTest<int>(InsertionSort<int>, numbers);
+    std::cout << std::endl;
 
     return 0;
 }
