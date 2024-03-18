@@ -28,6 +28,29 @@ void BubbleSort(std::vector<T>& elements)
     }
 }
 
+template<typename T>
+void SelectionSort(std::vector<T>& elements) 
+{
+    size_t length = elements.size();
+    for (int i = 0; i < length - 1; ++i)
+    {
+        int minIndex = i;
+
+        for (int j = i + 1; j < length; j++) 
+        {
+            if (elements[j] < elements[minIndex]) 
+            {
+                minIndex = j;
+            }
+        }
+
+        if (minIndex != i) 
+        {
+            std::swap(elements[i], elements[minIndex]);
+        }
+    }
+}
+
 template <typename T>
 void SortingTest(std::function<void(std::vector<T>&)> sortFn, const std::vector<T>& numbers, 
     bool printList = false)
@@ -75,6 +98,10 @@ int main()
 
     std::cout << "Bubble Sort: " << std::endl;
     SortingTest<int>(BubbleSort<int>, numbers);
+    std::cout << std::endl;
+
+    std::cout << "Selection Sort: " << std::endl;
+    SortingTest<int>(SelectionSort<int>, numbers);
 
     return 0;
 }
