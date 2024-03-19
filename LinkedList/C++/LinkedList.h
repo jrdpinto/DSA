@@ -578,9 +578,7 @@ public:
 
     void BubbleSort()
     {
-        Node* i = head_;
-
-        while (i)
+        for (int i = 0; i < length_; ++i)
         {
             Node* currentNode = head_;
             Node* prev = nullptr;
@@ -601,11 +599,6 @@ public:
                     else
                     {
                         // Head has changed
-                        if (i == head_)
-                        {
-                            i = nextNode;
-                        }
-
                         head_ = nextNode;
                     }
 
@@ -622,8 +615,6 @@ public:
                     currentNode = currentNode->next;
                 }
             }
-
-            i = i->next;
         }
     }
 
