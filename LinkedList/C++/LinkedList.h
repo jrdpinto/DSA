@@ -578,6 +578,8 @@ public:
 
     void BubbleSort()
     {
+        std::cout << "Bubble sort" << std::endl;
+
         for (int i = 0; i < length_; ++i)
         {
             Node* currentNode = head_;
@@ -615,6 +617,43 @@ public:
                     currentNode = currentNode->next;
                 }
             }
+        }
+    }
+
+    // Interview Question - Selection Sort (Linked List)
+    // Source: C++ Data Structures & Algorithms + LEETCODE Exercises
+    // https://www.udemy.com/course/data-structures-algorithms-cpp/learn/quiz/6025586#content 
+    // 
+    // Implement the selectionSort() method to sort a singly linked list using the Selection Sort algorithm.
+    // The goal is to sort the linked list in ascending order, but you can only change the value fields of 
+    // the existing nodes. 
+
+    void SelectionSort()
+    {
+        std::cout << "Selection sort" << std::endl;
+
+        Node* currentNode = head_;
+        while(currentNode)
+        {
+            Node* minNode = currentNode;
+            Node* nextNode = currentNode->next;
+
+            while(nextNode)
+            {
+                if (nextNode->value < minNode->value)
+                {
+                    minNode = nextNode;
+                }
+
+                nextNode = nextNode->next;
+            }
+
+            if (currentNode != minNode)
+            {
+                std::swap(currentNode->value, minNode->value);
+            }
+
+            currentNode = currentNode->next;
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿#include "LinkedList.h"
+#include <functional>
 #include <cmath>
 
 using namespace std;
@@ -218,20 +219,26 @@ int main()
         std::cout << "Reversing between indices 0 to 1: " << std::endl;
         testList.ReverseBetween(0, 1);
         testList.Print();
+        std::cout << std::endl;
     }
 
     {
         // Coding exercise - sort list
-        std::cout << "Running bubble sort test" << std::endl;
+        std::cout << "Running sort tests" << std::endl;
 
-        LinkedList<int> testList{4,5,3,1};
-        std::cout<< "Original list: ";
-        testList.Print();
+        auto sortTest = [](LinkedList<int>& unsortedList, std::function<void(LinkedList<int>&)> fn)
+        {
+            unsortedList.Print();
+            fn(unsortedList);
+            unsortedList.Print();
+            std::cout << std::endl;
+        };
 
-        std::cout << "Sorting list" << std::endl;
-        testList.BubbleSort();
-        std::cout << "Sorted list: ";
-        testList.Print();
+        LinkedList<int> test{4,5,3,1};
+        sortTest(test, &LinkedList<int>::BubbleSort);
+
+        LinkedList<int> test2{5,4,3,2,1};
+        sortTest(test2, &LinkedList<int>::SelectionSort);
     }
 
     return 0;
