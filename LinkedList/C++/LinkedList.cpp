@@ -220,5 +220,19 @@ int main()
         testList.Print();
     }
 
+    {
+        // Coding exercise - sort list
+        std::cout << "Running bubble sort test" << std::endl;
+
+        LinkedList<int> testList{4,5,3,1};
+        std::cout<< "Original list: ";
+        testList.Print();
+
+        std::cout << "Sorting list" << std::endl;
+        testList.BubbleSort();
+        std::cout << "Sorted list: ";
+        testList.Print();
+    }
+
     return 0;
 }

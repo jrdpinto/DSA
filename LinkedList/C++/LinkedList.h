@@ -567,6 +567,66 @@ public:
         }
     }
 
+    // Interview Question - Bubble Sort (Linked List)
+    // Source: C++ Data Structures & Algorithms + LEETCODE Exercises
+    // https://www.udemy.com/course/data-structures-algorithms-cpp/learn/quiz/6025584#overview
+    // 
+    // In this exercise, you will implement a method to sort a singly linked list using the Bubble
+    // Sort algorithm. The goal is to sort the linked list in ascending order without creating any 
+    // new nodes. You will only rearrange the value fields of the existing nodes.
+    // Constraints: Do not create new nodes; only change the value fields of existing nodes.
+
+    void BubbleSort()
+    {
+        Node* i = head_;
+
+        while (i)
+        {
+            Node* currentNode = head_;
+            Node* prev = nullptr;
+
+            // Iterate until the second last node
+            while (currentNode->next)
+            {
+                Node* nextNode = currentNode->next;
+                if (currentNode->value > nextNode->value)
+                {
+                    currentNode->next = nextNode->next;
+                    nextNode->next = currentNode;
+
+                    if (prev)
+                    {
+                        prev->next = nextNode;
+                    }
+                    else
+                    {
+                        // Head has changed
+                        if (i == head_)
+                        {
+                            i = nextNode;
+                        }
+
+                        head_ = nextNode;
+                    }
+
+                    prev = nextNode;
+
+                    if (currentNode->next == nullptr)
+                    {
+                        tail_ = currentNode;
+                    }
+                }
+                else
+                {
+                    prev = currentNode;
+                    currentNode = currentNode->next;
+                }
+            }
+
+            i = i->next;
+        }
+    }
+
 private:
     Node* head_ = nullptr;
     Node* tail_ = nullptr;
