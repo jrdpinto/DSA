@@ -42,6 +42,60 @@ int BinaryToDecimal(LinkedList<char>& binaryList)
     return decimalValue;
 }
 
+// Source: Leetcode
+// https://leetcode.com/problems/add-two-numbers/description/
+// You are given two non-empty linked lists representing two non-negative integers. The digits are 
+// stored in reverse order, and each of their nodes contains a single digit. Add the two numbers
+// and return the sum as a linked list. You may assume the two numbers do not contain any leading
+// zero, except the number 0 itself.
+//
+// Input: l1 = [2,4,3], l2 = [5,6,4]
+// Output: [7,0,8]
+
+LinkedList<int> AddTwoNumbers(LinkedList<int>& l1, LinkedList<int>& l2)
+{
+    LinkedList<int> result;
+
+    int num1 = 0, num2 = 0, sum = 0;
+
+    auto extractNumber = [](const LinkedList<int>& numbers) -> int {
+        int num = 0;
+        int decimal = 1;
+
+        LinkedList<int>::Node* current = numbers.GetNodeAtIndex(0);
+        while(current)
+        {
+            num += current->value * decimal;
+
+            current = current->next;
+            decimal *= 10;
+        }
+
+        return num;
+    };
+
+    sum = extractNumber(l1) + extractNumber(l2);
+
+    int numDigits = (int)(floor(log10(sum)) + 1);
+    for (int i = 1; i <= numDigits; ++i)
+	{
+		double divisor = std::pow(10, numDigits - i);
+		int nextDigit = (int)std::floor(sum / divisor);
+        if (result.GetLength() > 0)
+        {
+            result.Insert(0, nextDigit);
+        }
+        else
+        {
+            result.Append(nextDigit);
+        }
+
+		sum = sum - (long)(nextDigit * divisor);
+	}
+
+    return result;
+}
+
 int main()
 {
     {
@@ -239,6 +293,18 @@ int main()
 
         LinkedList<int> test2{5,4,3,2,1};
         sortTest(test2, &LinkedList<int>::SelectionSort);
+    }
+
+    {
+        // Coding exercise - Add two numbers
+        std::cout << "Add two numbers" << std::endl;
+        LinkedList<int> l1{2,4,3};
+        l1.Print();
+        LinkedList<int> l2{5,6,4};
+        l2.Print();
+        LinkedList<int> result = AddTwoNumbers(l1, l2);
+        std::cout << "Result: ";
+        result.Print();
     }
 
     return 0;

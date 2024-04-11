@@ -34,6 +34,17 @@ public:
         Clear();
     }
 
+    LinkedList(LinkedList<T>&& other)
+    {
+        this->head_ = other.head_;
+        this->length_ = other.length_;
+        this->tail_ = other.tail_;
+
+        other.head_ = nullptr;
+        other.tail_ = nullptr;
+        other.length_ = 0;
+    }
+
     int GetLength()
     {
         return length_;
@@ -287,7 +298,7 @@ public:
         }
     }
 
-    Node* GetNodeAtIndex(int index)
+    Node* GetNodeAtIndex(int index) const
     {
         Node* previousNode = nullptr;
         return GetNode(index, previousNode);
@@ -662,12 +673,12 @@ private:
     Node* tail_ = nullptr;
     int length_ = 0;
 
-    Node* GetNode(int index, Node*& previousNode)
+    Node* GetNode(int index, Node*& previousNode) const
     {
         Node* node = nullptr;
         previousNode = nullptr;
 
-        assert(index < length_);
+        assert(length_ == 0  && index == 0 || index < length_);
         if (length_ < 1 || index >= length_)
         {
             return node;
