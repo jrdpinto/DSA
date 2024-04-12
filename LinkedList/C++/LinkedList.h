@@ -3,6 +3,7 @@
 #include <sstream>
 #include <initializer_list>
 #include <cassert>
+#include <vector>
 
 template <typename T>
 class LinkedList
@@ -665,6 +666,45 @@ public:
             }
 
             currentNode = currentNode->next;
+        }
+    }
+
+    // Source: C++ Data Structures & Algorithms + LEETCODE Exercises
+    // https://www.udemy.com/course/data-structures-algorithms-cpp/learn/quiz/6025590#content
+    //
+    // Implement the insertionSort() method to sort a singly linked list using the Insertion Sort algorithm.
+    // The goal is to sort the linked list in ascending order. You should only change the value fields of
+    // the existing nodes and update the next pointers appropriately.
+
+    void InsertionSort()
+    {
+        std::cout << "Insertion sort" << std::endl;
+        if (length_ <= 1)
+        {
+            return;
+        }
+
+        std::vector<Node*> nodes;
+        nodes.reserve(length_);
+        nodes.push_back(head_);
+        nodes.push_back(head_->next);
+
+        for(int i = 1; i < length_; ++i)
+        {
+            T key = nodes[i]->value;
+            int j = i-1;
+            while (j >= 0 && nodes[j]->value > key)
+            {
+                if (nodes[j]->value > key)
+                {
+                    nodes[j+1]->value = nodes[j]->value;
+                }
+
+                --j;
+            }
+
+            nodes[j+1]->value = key;
+            nodes.push_back(nodes.back()->next);
         }
     }
 

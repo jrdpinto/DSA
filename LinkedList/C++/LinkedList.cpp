@@ -293,6 +293,12 @@ int main()
 
         LinkedList<int> test2{5,4,3,2,1};
         sortTest(test2, &LinkedList<int>::SelectionSort);
+
+        LinkedList<int> test3{5,4,3,2,1};
+        sortTest(test3, &LinkedList<int>::InsertionSort);
+
+        LinkedList<int> test4{0,2,1,5,22,15};
+        sortTest(test4, &LinkedList<int>::InsertionSort);
     }
 
     {
