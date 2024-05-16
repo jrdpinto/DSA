@@ -73,7 +73,7 @@ template <typename T>
 void SortingTest(std::function<void(std::vector<T>&)> sortFn, const std::vector<T>& numbers, 
     bool printList = false)
 {
-    std::vector<int> numbersCopy = numbers;
+    std::vector<T> numbersCopy = numbers;
 
     if (printList)
     {
