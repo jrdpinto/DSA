@@ -684,28 +684,38 @@ public:
             return;
         }
 
-        std::vector<Node*> nodes;
-        nodes.reserve(length_);
-        nodes.push_back(head_);
-        nodes.push_back(head_->next);
+        Node* sortedTail = head_;
+        Node* current = head_->next;
 
-        for(int i = 1; i < length_; ++i)
+        while (current != nullptr)
         {
-            T key = nodes[i]->value;
-            int j = i-1;
-            while (j >= 0 && nodes[j]->value > key)
-            {
-                if (nodes[j]->value > key)
-                {
-                    nodes[j+1]->value = nodes[j]->value;
-                }
+            Node* next = current->next;
 
-                --j;
+            if (current->value < head_->value)
+            {
+                current->next = head_;
+                head_ = current;
+            }
+            else if (current->value >= sortedTail->value)
+            {
+                sortedTail->next = current;
+                sortedTail = current;
+            }
+            else
+            {
+                Node* prev = head_;
+                while (prev->next->value < current->value)
+                {
+                    prev = prev->next;
+                }
+                current->next = prev->next;
+                prev->next = current;
             }
 
-            nodes[j+1]->value = key;
-            nodes.push_back(nodes.back()->next);
+            current = next;
         }
+
+        sortedTail->next = nullptr;
     }
 
 private:
