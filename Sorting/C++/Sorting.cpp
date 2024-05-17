@@ -69,6 +69,60 @@ void InsertionSort(std::vector<T>& arr)
     }
 }
 
+template<typename T>
+std::vector<T> Merge(std::vector<T>& left, std::vector<T>& right)
+{
+    std::vector<T> merged;
+
+    size_t i = 0, j = 0;
+    while(i < left.size() && j < right.size())
+    {
+        T leftValue = left[i];
+        T rightValue = right[j];
+        if (leftValue < rightValue)
+        {
+            merged.push_back(leftValue);
+            ++i;
+        }
+        else
+        {
+            merged.push_back(rightValue);
+            ++j;
+        }
+    }
+
+    if (i < left.size())
+    {
+        merged.insert(merged.end(), left.begin()+i, left.end());
+    }
+    else if (j < right.size())
+    {
+        merged.insert(merged.end(), right.begin()+j, right.end());
+    }
+
+    return merged;
+}
+
+template<typename T>
+std::vector<T> MergeSort(std::vector<T>& arr)
+{
+    size_t size = arr.size();
+    if (size < 2)
+    {
+        return arr;
+    }
+
+    size_t middle = size/2.f;
+    auto middleIt = arr.begin()+middle;
+    std::vector<T> left(arr.begin(), middleIt);
+    std::vector<T> right(middleIt, arr.end());
+
+    left = MergeSort(left);
+    right = MergeSort(right);
+
+    return Merge(left, right);
+}
+
 template <typename T>
 void SortingTest(std::function<void(std::vector<T>&)> sortFn, const std::vector<T>& numbers, 
     bool printList = false)
@@ -112,7 +166,7 @@ typename std::enable_if<std::is_arithmetic<T>::value, std::vector<T>>::type Gene
 
 int main()
 {
-    std::vector<int> numbers = GenerateRandomNumbers<int>(1000);
+    std::vector<int> numbers = GenerateRandomNumbers<int>(10000);
 
     std::cout << "Bubble Sort: " << std::endl;
     SortingTest<int>(BubbleSort<int>, numbers);
@@ -124,6 +178,10 @@ int main()
 
     std::cout << "Insertion Sort: " << std::endl;
     SortingTest<int>(InsertionSort<int>, numbers);
+    std::cout << std::endl;
+
+    std::cout << "Merge Sort: " << std::endl;
+    SortingTest<int>(MergeSort<int>, numbers);
     std::cout << std::endl;
 
     return 0;
