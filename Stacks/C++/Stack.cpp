@@ -38,64 +38,6 @@ std::string ReverseString(std::string& inputString)
     return reversedString;
 }
 
-// Interview Question - Parentheses Balance
-// Implement a function called isBalancedParentheses() that checks if the input string contains balanced parentheses.
-// 
-// Input:
-// The function takes a constant reference to a string parentheses.
-// 
-// Output:
-// The function should return a boolean value indicating whether the input string contains balanced parentheses or not.
-// 
-// Constraints:
-// The input string may contain any printable ASCII characters, but the function should only consider the opening and
-// closing parentheses '(' and ')' for determining balance.
-// 
-// Examples:
-// Consider the following input string:
-//     parentheses: "()"
-
-// After calling isBalancedParentheses(parentheses), the result should be:
-//     true
-// 
-// Consider the following input string:
-//     parentheses: "(()))"
-// 
-// After calling isBalancedParentheses(parentheses), the result should be:
-//     false
-// 
-// Consider the following input string:
-//     parentheses: ")("
-// 
-// After calling isBalancedParentheses(parentheses), the result should be:
-//     false
-
-bool IsBalancedParentheses(const std::string& parentheses) 
-{
-    Stack<char> parenthesesStack;
-
-    for (int i = 0; i < parentheses.size(); ++i)
-    {
-        if (parentheses[i] == '(')
-        {
-            parenthesesStack.Push('(');
-        }
-        else if (parentheses[i] == ')')
-        {
-            if (parenthesesStack.GetHeight() > 0 && parenthesesStack.Peek() == '(')
-            {
-                parenthesesStack.Pop();
-            }
-            else
-            {
-                parenthesesStack.Push(')');
-            }
-        }
-    }
-
-    return parenthesesStack.GetHeight() == 0;
-}
-
 // Interview Question - Sort Stack 
 // 
 // Implement a function called sortStack() that sorts a given stack of integers in ascending order using an
@@ -183,26 +125,6 @@ int main()
         std::string inputString("Hello!");
         std::cout << "Input string " << inputString.c_str() << std::endl;
         std::cout << "Output: " << ReverseString(inputString).c_str() << std::endl;
-        std::cout << std::endl;
-    }
-
-    {
-        std::cout << "Running balanced parentheses tests" << std::endl;
-
-        auto testCase = [](const char* testString) {
-            std::cout << "Testing string - " << testString << " Output: " << 
-                (IsBalancedParentheses(testString) ? "Balanced" : "Imbalanced") << std::endl;
-        };
-        testCase("()");
-        testCase("(");
-        testCase(")");
-        testCase(")(");
-        testCase("(abc(deeewf))");
-        testCase("(abc(deeewf)");
-        testCase(")(abc(deeewf))");
-        testCase("(abc(deeewf))()");
-        testCase("(abc(deeewf)))");
-
         std::cout << std::endl;
     }
 
