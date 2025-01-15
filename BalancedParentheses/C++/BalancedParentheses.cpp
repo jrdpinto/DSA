@@ -46,18 +46,16 @@ bool IsBalancedParentheses(const std::string_view parentheses)
         }
         else if (parentheses[i] == ')')
         {
-            if (parenthesesStack.size() > 0 && parenthesesStack.top() == '(')
+            if (parenthesesStack.empty())
             {
-                parenthesesStack.pop();
+                // Exit early if the top of the stack is an open bracket
+                return false;
             }
-            else
-            {
-                parenthesesStack.push(')');
-            }
+            parenthesesStack.pop();
         }
     }
 
-    return parenthesesStack.size() == 0;
+    return parenthesesStack.empty();
 }
 
 int main()
@@ -67,19 +65,21 @@ int main()
     {
         std::cout << "Running balanced parentheses tests" << std::endl;
 
-        auto testCase = [](std::string_view testString) {
+        auto testCase = [](std::string_view testString, bool expectedOutput) {
+            bool output = IsBalancedParentheses(testString);
             std::cout << "Testing string - " << testString << " Output: " << 
-                (IsBalancedParentheses(testString) ? "Balanced" : "Imbalanced") << std::endl;
+                (output ? "Balanced" : "Imbalanced") << 
+                (expectedOutput != output ? "   FAILED" : "" ) << std::endl;
         };
-        testCase("()");
-        testCase("(");
-        testCase(")");
-        testCase(")(");
-        testCase("(abc(deeewf))");
-        testCase("(abc(deeewf)");
-        testCase(")(abc(deeewf))");
-        testCase("(abc(deeewf))()");
-        testCase("(abc(deeewf)))");
+        testCase("()", true);
+        testCase("(", false);
+        testCase(")", false);
+        testCase(")(", false);
+        testCase("(abc(deeewf))", true);
+        testCase("(abc(deeewf)", false);
+        testCase(")(abc(deeewf))", false);
+        testCase("(abc(deeewf))()", true);
+        testCase("(abc(deeewf)))", false);
 
         std::cout << std::endl;
     }
