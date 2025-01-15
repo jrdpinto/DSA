@@ -58,6 +58,103 @@ bool IsBalancedParentheses(const std::string_view parentheses)
     return parenthesesStack.empty();
 }
 
+// Interview question - Valid parentheses
+// Source: Leet Code https://leetcode.com/problems/valid-parentheses/description/
+//
+// Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+// An input string is valid if:
+//     Open brackets must be closed by the same type of brackets.
+//     Open brackets must be closed in the correct order.
+//     Every close bracket has a corresponding open bracket of the same type.
+// 
+// Example 1:
+// Input: s = "()"
+// Output: true
+// 
+// Example 2:
+// Input: s = "()[]{}"
+// Output: true
+// 
+// Example 3:
+// Input: s = "(]"
+// Output: false
+// 
+// Example 4:
+// Input: s = "([])"
+// Output: true
+// 
+// Constraints:
+//     1 <= s.length <= 104
+//     s consists of parentheses only '()[]{}'.
+
+inline bool isOpenBracket(char c)
+{
+    return c == '(' || c == '[' || c == '{';
+}
+
+inline bool isMatchingBracket(char a, char b)
+{
+    bool isMatching = false;
+    
+    switch (a)
+    {
+        case '{':
+        {
+            isMatching = b == '}';
+            break;
+        }
+        case '(':
+        {
+            isMatching = b == ')';
+            break;
+        }
+        case '[':
+        {
+            isMatching = b == ']';
+            break;
+        }
+    }
+
+    return isMatching;
+}
+
+bool AreParenthesesValid(std::string_view parentheses)
+{
+    std::stack<char> parenthesesStack;
+
+    if (parentheses.size() & 1)
+    {
+        // If the string size is odd, parentheses are imbalanced
+        return false;
+    }
+
+    for (char c : parentheses)
+    {
+        if (isOpenBracket(c))
+        {
+            parenthesesStack.push(c);
+        }
+        else
+        {
+            if (parenthesesStack.empty())
+            {
+                return false;
+            }
+            else if (isMatchingBracket(parenthesesStack.top(), c))
+            {
+                parenthesesStack.pop();
+            }
+            else
+            {
+                parenthesesStack.push(c);
+            }
+        }
+    }
+
+    return parenthesesStack.empty();
+}
+
+
 int main()
 {
     std::cout << "Balanced parentheses" << std::endl;
@@ -80,6 +177,28 @@ int main()
         testCase(")(abc(deeewf))", false);
         testCase("(abc(deeewf))()", true);
         testCase("(abc(deeewf)))", false);
+
+        std::cout << std::endl;
+    }
+
+    {
+        std::cout << "Running valid parentheses tests" << std::endl;
+
+        auto testCase = [](std::string_view testString, bool expectedOutput) {
+            bool output = AreParenthesesValid(testString);
+            std::cout << "Testing string - " << testString << " Output: " << 
+                (output ? "Balanced" : "Imbalanced") << 
+                (expectedOutput != output ? "   FAILED" : "" ) << std::endl;
+        };
+        testCase("()", true);
+        testCase("(", false);
+        testCase(")", false);
+        testCase(")(", false);
+        testCase("(())", true);
+        testCase("({)", false);
+        testCase(")([])}", false);
+        testCase("({})([])", true);
+        testCase("[()]}", false);
 
         std::cout << std::endl;
     }
